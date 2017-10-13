@@ -20,11 +20,11 @@
 >1. 修改style.xml
   将parent 修改成 noactionbar
    ```html
-   <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
+   <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar"> 
+        <item name="colorPrimary">@color/colorPrimary</item> 
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item> 
+        <item name="colorAccent">@color/colorAccent</item> 
+    </style> 
     ```
     
 >2. 初始化Grace
