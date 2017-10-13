@@ -27,5 +27,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
     ```
+    
 ###2. 初始化Grace
   创建Application,在oncreate方法中调用Grace.init();
