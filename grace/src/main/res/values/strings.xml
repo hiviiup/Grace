@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">grace</string>
+    <string name="state_network_error">网络出现异常</string>
+    <string name="state_loading">正在加载...</string>
+    <string name="state_not_more">加载完成</string>
+    <string name="state_refreshing">正在刷新...</string>
+    <string name="state_load_error">加载出错</string>
+</resources>
