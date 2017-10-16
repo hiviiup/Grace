@@ -70,8 +70,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     protected void initView() {
         ViewGroup rootView = findViewById(R.id.rl_root_view);
-        final View contentView = View.inflate(this, getLayoutId(), null);
-        rootView.addView(contentView);
+        View.inflate(this, getLayoutId(), rootView);
     }
 
     /**
