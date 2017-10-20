@@ -9,7 +9,7 @@ import java.io.File;
  * Created by Devin on 2017/6/7.
  */
 
-public class DataCleanManager {
+public class CleanUtils {
     /**
      * 清除本应用内部缓存(/data/data/com.xxx.xxx/cache)
      * @param context

@@ -12,11 +12,11 @@ import android.view.ViewGroup;
 
 import com.evayinfo.grace.R;
 
+
 /**
  * Created by Devin on 2017/8/16.
  * 基础BaseActivity类
  */
-
 public abstract class BaseActivity extends AppCompatActivity {
     public Toolbar toolbar;
 

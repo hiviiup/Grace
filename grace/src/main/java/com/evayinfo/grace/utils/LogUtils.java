@@ -13,24 +13,30 @@ import java.security.PublicKey;
 public class LogUtils {
 
     private static boolean DEBUG = BuildConfig.DEBUG ;
+    private static String TAG = "LogUtils";
+
+    public static void debug(boolean debug) {
+        DEBUG = debug;
+    }
 
     public static void e(String msg) {
-        if (DEBUG)
-            Log.e("LogUtils", msg);
+        if (DEBUG) {
+            Log.e(TAG, msg);
+        }
     }
 
     public static void d(String msg) {
         if (DEBUG)
-            Log.d("LogUtils", msg);
+            Log.d(TAG, msg);
     }
 
     public static void i(String msg) {
         if (DEBUG)
-            Log.i("LogUtils", msg);
+            Log.i(TAG, msg);
     }
 
     public static void w(String msg) {
         if (DEBUG)
-            Log.w("LogUtils", msg);
+            Log.w(TAG, msg);
     }
 }

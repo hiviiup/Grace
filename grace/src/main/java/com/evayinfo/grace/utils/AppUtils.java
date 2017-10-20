@@ -9,10 +9,11 @@ import android.widget.Toast;
 import com.evayinfo.grace.Grace;
 
 /**
+ * 常用类
  * Created by DEVIN on 2017/9/29.
  */
 
-public class Common {
+public class AppUtils {
 
     private static Toast toast;
 
@@ -71,7 +72,6 @@ public class Common {
             return "";
         return getPackageInfo().versionName;
     }
-
 
 
 }
