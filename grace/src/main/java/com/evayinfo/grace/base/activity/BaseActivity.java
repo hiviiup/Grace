@@ -112,6 +112,29 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void setTitle(int titleId) {
+        if (hasActionbar()) {
+            {
+                final ActionBar supportActionBar = getSupportActionBar();
+                if (supportActionBar != null) {
+                    supportActionBar.setTitle(titleId);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        if (hasActionbar()) {
+            {
+                final ActionBar supportActionBar = getSupportActionBar();
+                if (supportActionBar != null) {
+                    supportActionBar.setTitle(title);
+                }
+            }
+        }
+    }
 
     /**
      * 设置标题栏返回按钮
