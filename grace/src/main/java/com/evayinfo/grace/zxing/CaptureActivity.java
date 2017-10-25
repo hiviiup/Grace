@@ -53,7 +53,7 @@ import com.evayinfo.grace.zxing.view.ViewfinderView;
  * @author dswitkin@google.com (Daniel Switkin)
  * @author Sean Owen
  */
-public final class CaptureActivity extends BaseActivity implements
+public class CaptureActivity extends BaseActivity implements
         SurfaceHolder.Callback, View.OnClickListener {
 
     private static final String TAG = CaptureActivity.class.getSimpleName();
