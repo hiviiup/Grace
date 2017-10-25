@@ -40,7 +40,7 @@ import com.evayinfo.grace.zxing.config.Config;
  * 
  * @author dswitkin@google.com (Daniel Switkin)
  */
-final class DecodeThread extends Thread {
+public final class DecodeThread extends Thread {
 
 	public static final String BARCODE_BITMAP = "barcode_bitmap";
 
@@ -54,7 +54,7 @@ final class DecodeThread extends Thread {
 
 	private final CountDownLatch handlerInitLatch;
 
-	DecodeThread(CaptureActivity activity,
+	public DecodeThread(CaptureActivity activity,
 			Collection<BarcodeFormat> decodeFormats,
 			Map<DecodeHintType, ?> baseHints, String characterSet,
 			ResultPointCallback resultPointCallback) {

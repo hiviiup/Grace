@@ -34,13 +34,13 @@ import android.provider.Browser;
 import android.util.Log;
 
 import com.evayinfo.grace.R;
+import com.evayinfo.grace.zxing.view.ViewfinderResultPointCallback;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.Result;
 
 import com.evayinfo.grace.zxing.CaptureActivity;
 import com.evayinfo.grace.zxing.camera.CameraManager;
-import com.evayinfo.grace.zxing.view.ViewfinderResultPointCallback;
 
 /**
  * This class handles all the messaging which comprises the state machine for
