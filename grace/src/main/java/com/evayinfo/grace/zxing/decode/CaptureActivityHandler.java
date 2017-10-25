@@ -34,7 +34,7 @@ import android.provider.Browser;
 import android.util.Log;
 
 import com.evayinfo.grace.R;
-import com.evayinfo.grace.zxing.view.ViewfinderResultPointCallback;
+import com.evayinfo.grace.zxing.view.ViewFinderResultPointCallback;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.Result;
@@ -90,7 +90,7 @@ public final class CaptureActivityHandler extends Handler {
 
 		// 启动扫描线程
 		decodeThread = new DecodeThread(activity, decodeFormats, baseHints,
-				characterSet, new ViewfinderResultPointCallback(
+				characterSet, new ViewFinderResultPointCallback(
 						activity.getViewfinderView()));
 		decodeThread.start();
 
