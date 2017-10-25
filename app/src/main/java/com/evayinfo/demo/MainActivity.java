@@ -1,26 +1,14 @@
 package com.evayinfo.demo;
 
 
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.view.ViewPager;
-import android.view.View;
 
 import com.evayinfo.grace.base.activity.BackActivity;
 import com.evayinfo.grace.utils.AppUtils;
-import com.evayinfo.grace.utils.FileUtils;
-import com.evayinfo.grace.utils.ImageUtils;
 import com.evayinfo.grace.zxing.CaptureActivity;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 
 import butterknife.ButterKnife;
 
