@@ -28,7 +28,7 @@ import com.evayinfo.grace.zxing.camera.CameraManager;
  * 
  * <br/>
  * <br/>
- * 该视图是覆盖在相机的预览视图之上的一层视图。扫描区构成原理，其实是在预览视图上画四块遮罩层，
+ * 。扫描区构成原理，其实是在预览视图上画该视图是覆盖在相机的预览视图之上的一层视图四块遮罩层，
  * 中间留下的部分保持透明，并画上一条激光线，实际上该线条就是展示而已，与扫描功能没有任何关系。
  * 
  * @author dswitkin@google.com (Daniel Switkin)
