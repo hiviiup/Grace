@@ -8,7 +8,6 @@ import android.os.Looper;
 
 import com.evayinfo.grace.base.activity.BackActivity;
 import com.evayinfo.grace.utils.AppUtils;
-import com.evayinfo.grace.zxing.CaptureActivity;
 
 import butterknife.ButterKnife;
 

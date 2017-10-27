@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 ZXing authors
+ * Copyright (C) 2015 ZXing authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package com.evayinfo.grace.zxing;
+package com.evayinfo.grace.zxing.camera.open;
 
-public enum IntentSource {
+/**
+ * Enumeration of directions a camera may face: front or back.
+ */
+public enum CameraFacing {
 
-  NATIVE_APP_INTENT,
-  PRODUCT_SEARCH_LINK,
-  ZXING_LINK,
-  NONE
+  BACK,  // must be value 0!
+  FRONT, // must be value 1!
 
 }

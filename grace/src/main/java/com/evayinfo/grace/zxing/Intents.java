@@ -26,12 +26,15 @@ public final class Intents {
   private Intents() {
   }
 
+  /**
+   * Constants related to the {@link Scan#ACTION} Intent.
+   */
   public static final class Scan {
     /**
      * Send this intent to open the Barcodes app in scanning mode, find a barcode, and return
      * the results.
      */
-    public static final String ACTION = "com.google.zxing.client.android.SCAN";
+    public static final String ACTION = "com.evayinfo.grace.zxing.SCAN";
 
     /**
      * By default, sending this will decode all barcodes that we understand. However it
@@ -80,7 +83,7 @@ public final class Intents {
      * Example: "EAN_13,EAN_8,QR_CODE". This overrides {@link #MODE}.
      */
     public static final String FORMATS = "SCAN_FORMATS";
-	
+
     /**
      * Optional parameter to specify the id of the camera from which to recognize barcodes.
      * Overrides the default camera that would otherwise would have been selected.
@@ -146,19 +149,19 @@ public final class Intents {
     public static final String RESULT_BYTES = "SCAN_RESULT_BYTES";
 
     /**
-     * Key for the value of {@link com.google.zxing.ResultMetadataType#ORIENTATION}, if available.
+     * Key for the value of {@link com.evayinfo.grace.ResultMetadataType#ORIENTATION}, if available.
      * Call {@link android.content.Intent#getIntArrayExtra(String)} with {@link #RESULT_ORIENTATION}.
      */
     public static final String RESULT_ORIENTATION = "SCAN_RESULT_ORIENTATION";
 
     /**
-     * Key for the value of {@link com.google.zxing.ResultMetadataType#ERROR_CORRECTION_LEVEL}, if available.
+     * Key for the value of {@link com.evayinfo.grace.ResultMetadataType#ERROR_CORRECTION_LEVEL}, if available.
      * Call {@link android.content.Intent#getStringExtra(String)} with {@link #RESULT_ERROR_CORRECTION_LEVEL}.
      */
     public static final String RESULT_ERROR_CORRECTION_LEVEL = "SCAN_RESULT_ERROR_CORRECTION_LEVEL";
 
     /**
-     * Prefix for keys that map to the values of {@link com.google.zxing.ResultMetadataType#BYTE_SEGMENTS},
+     * Prefix for keys that map to the values of {@link com.evayinfo.grace.ResultMetadataType#BYTE_SEGMENTS},
      * if available. The actual values will be set under a series of keys formed by adding 0, 1, 2, ...
      * to this prefix. So the first byte segment is under key "SCAN_RESULT_BYTE_SEGMENTS_0" for example.
      * Call {@link android.content.Intent#getByteArrayExtra(String)} with these keys.
@@ -174,6 +177,9 @@ public final class Intents {
     }
   }
 
+  /**
+   * Constants related to the scan history and retrieving history items.
+   */
   public static final class History {
 
     public static final String ITEM_NUMBER = "ITEM_NUMBER";
@@ -182,12 +188,15 @@ public final class Intents {
     }
   }
 
+  /**
+   * Constants related to the {@link Encode#ACTION} Intent.
+   */
   public static final class Encode {
     /**
      * Send this intent to encode a piece of data as a QR code and display it full screen, so
      * that another person can scan the barcode from your screen.
      */
-    public static final String ACTION = "com.google.zxing.client.android.ENCODE";
+    public static final String ACTION = "com.evayinfo.grace.zxing.ENCODE";
 
     /**
      * The data to encode. Use {@link android.content.Intent#putExtra(String, String)} or
@@ -220,11 +229,14 @@ public final class Intents {
     }
   }
 
+  /**
+   * Constants related to the {@link SearchBookContents#ACTION} Intent.
+   */
   public static final class SearchBookContents {
     /**
      * Use Google Book Search to search the contents of the book provided.
      */
-    public static final String ACTION = "com.google.zxing.client.android.SEARCH_BOOK_CONTENTS";
+    public static final String ACTION = "com.evayinfo.grace.zxing.SEARCH_BOOK_CONTENTS";
 
     /**
      * The book to search, identified by ISBN number.
@@ -240,11 +252,14 @@ public final class Intents {
     }
   }
 
+  /**
+   * Constants related to the {@link WifiConnect#ACTION} Intent.
+   */
   public static final class WifiConnect {
     /**
      * Internal intent used to trigger connection to a wi-fi network.
      */
-    public static final String ACTION = "com.google.zxing.client.android.WIFI_CONNECT";
+    public static final String ACTION = "com.evayinfo.grace.zxing.WIFI_CONNECT";
 
     /**
      * The network to connect to, all the configuration provided here.
@@ -265,12 +280,15 @@ public final class Intents {
     }
   }
 
+  /**
+   * Constants related to the {@link Share#ACTION} Intent.
+   */
   public static final class Share {
     /**
      * Give the user a choice of items to encode as a barcode, then render it as a QR Code and
      * display onscreen for a friend to scan with their phone.
      */
-    public static final String ACTION = "com.google.zxing.client.android.SHARE";
+    public static final String ACTION = "com.evayinfo.grace.zxing.SHARE";
 
     private Share() {
     }
