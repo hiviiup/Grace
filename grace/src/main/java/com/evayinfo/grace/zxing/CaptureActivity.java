@@ -22,6 +22,7 @@ import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.evayinfo.grace.base.activity.BaseActivity;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
 import com.evayinfo.grace.R;
@@ -37,9 +38,9 @@ import java.util.Map;
  * Created by yangxixi on 16/11/21.
  */
 
-public abstract class BaseCaptureActivity extends Activity implements SurfaceHolder.Callback {
+public abstract class CaptureActivity extends BaseActivity implements SurfaceHolder.Callback {
 
-    private static final String TAG = BaseCaptureActivity.class.getSimpleName();
+    private static final String TAG = CaptureActivity.class.getSimpleName();
 
     private static final String SCHEME = "package";
     /**
@@ -69,6 +70,7 @@ public abstract class BaseCaptureActivity extends Activity implements SurfaceHol
     private Map<DecodeHintType, ?> decodeHints;
     private String characterSet;
     private IntentSource source;
+    private boolean torchStatus = false;
 
     public ViewfinderView getViewfinderView() {
         return viewfinderView;
@@ -97,7 +99,6 @@ public abstract class BaseCaptureActivity extends Activity implements SurfaceHol
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
     }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -359,11 +360,12 @@ public abstract class BaseCaptureActivity extends Activity implements SurfaceHol
 
     /**
      * 播放声音，执行振动
+     *
      * @param playBeep
      * @param vibrate
      */
     public void playBeepSoundAndVibrate(boolean playBeep, boolean vibrate) {
-        if(beepManager == null)
+        if (beepManager == null)
             return;
         beepManager.playBeepSoundAndVibrate(playBeep, vibrate);
     }
@@ -372,7 +374,7 @@ public abstract class BaseCaptureActivity extends Activity implements SurfaceHol
      * 重新开始扫描，因为扫描成功以后是不会再扫描
      */
     public void reScan() {
-        if(hasSurface) {
+        if (hasSurface) {
             Handler handler = getHandler();
             if (handler != null) {
                 Message message = Message.obtain(handler, Ids.decode_failed);
@@ -388,10 +390,12 @@ public abstract class BaseCaptureActivity extends Activity implements SurfaceHol
      */
     public abstract SurfaceView getSurfaceView();
 
+
+
+
     /**
      * 获取此视图，可以显示中间限定框，可返回null，返回null，则不显示。
      *
-     * @return
      */
     public ViewfinderView getViewfinderHolder() {
         return null;
@@ -404,7 +408,14 @@ public abstract class BaseCaptureActivity extends Activity implements SurfaceHol
      * @param barcode
      * @param scaleFactor
      */
-    public abstract void dealDecode(Result rawResult, Bitmap barcode, float scaleFactor);
+    public void dealDecode(Result rawResult, Bitmap barcode, float scaleFactor) {
+        playBeepSoundAndVibrate();
+    }
+
+
+    public void setFlashLight(boolean open) {
+        getCameraManager().setTorch(open);
+    }
 
 
 }

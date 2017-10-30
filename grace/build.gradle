@@ -14,7 +14,7 @@ android {
         groupId = 'com.github.hiviiup'
         repoName = 'grace'
         artifactId = 'grace'
-        publishVersion = '2.0.0'
+        publishVersion = '2.0.2'
     }
 
     defaultConfig {
