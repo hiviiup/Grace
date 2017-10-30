@@ -6,8 +6,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="titleTextColor">@color/colorAccent</item>
         <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="titleTextStyle">@style/TitleStyle</item>
+    </style>
+
+    <style name="TitleStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#FFF</item>
     </style>
 
 
