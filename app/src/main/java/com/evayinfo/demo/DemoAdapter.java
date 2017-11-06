@@ -4,9 +4,13 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.evayinfo.grace.base.BaseRecyclerAdapter;
+import com.evayinfo.grace.media.MediaStoreData;
+import com.evayinfo.grace.utils.ImageUtils;
+import com.evayinfo.grace.utils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,16 +22,9 @@ import butterknife.ButterKnife;
  * Created by DEVIN on 2017/9/22.
  */
 
-public class DemoAdapter extends BaseRecyclerAdapter<String> {
-    List<String> strings;
-
+public class DemoAdapter extends BaseRecyclerAdapter<MediaStoreData> {
     public DemoAdapter(Context context, int mode) {
         super(context, mode);
-        strings = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
-            strings.add("这是一条Item");
-        }
-        addAll(strings);
     }
 
     @Override
@@ -41,17 +38,19 @@ public class DemoAdapter extends BaseRecyclerAdapter<String> {
     }
 
     @Override
-    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, String item, int position) {
+    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, MediaStoreData item, int position) {
         DemoHolder mHolder = (DemoHolder) holder;
-        mHolder.tv.setText(getItems().get(position));
+        LogUtils.e(item.toString());
+        ImageUtils.loadImage(item.uri, mHolder.tv);
     }
 
     public class DemoHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv)
-        TextView tv;
+        ImageView tv;
+
         public DemoHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

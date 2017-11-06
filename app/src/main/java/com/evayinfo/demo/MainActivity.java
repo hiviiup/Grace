@@ -1,23 +1,31 @@
 package com.evayinfo.demo;
 
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
+import android.os.Environment;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.Loader;
 
-import com.evayinfo.grace.base.activity.BackActivity;
-import com.evayinfo.grace.utils.AppUtils;
+import com.evayinfo.grace.base.BaseRecyclerAdapter;
+import com.evayinfo.grace.base.activity.BaseListActivity;
+import com.evayinfo.grace.media.MediaHelper;
+import com.evayinfo.grace.media.MediaStoreData;
+import com.evayinfo.grace.media.MediaStoreDataLoader;
+
+import java.util.List;
+import java.util.logging.Logger;
 
 import butterknife.ButterKnife;
 
-public class MainActivity extends BackActivity {
 
-    private static final int SCANNING_REQUEST_CODE = 1001;
+public class MainActivity extends BaseListActivity implements LoaderCallbacks<List<MediaStoreData>> {
+
+    private DemoAdapter demoAdapter;
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.activity_main;
+    protected void init() {
+        super.init();
+//        getSupportLoaderManager().initLoader(R.id.loader_media_store_data_load, null, this);
     }
 
     @Override
@@ -30,28 +38,36 @@ public class MainActivity extends BackActivity {
         super.initView();
         ButterKnife.bind(this, this);
 
-        Intent intent = new Intent(this, CaptureActivity.class);
-        startActivityForResult(intent,SCANNING_REQUEST_CODE);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case SCANNING_REQUEST_CODE:
-                if (resultCode == RESULT_OK) {
-                    final Bundle bundle = data.getExtras();
-                    Handler handler = new Handler(Looper.getMainLooper());
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            AppUtils.toast(bundle.getString("result"));
-                        }
-                    });
-                }
-                break;
-            default:
-                break;
-        }
+    protected BaseRecyclerAdapter getAdapter() {
+        demoAdapter = new DemoAdapter(this, BaseRecyclerAdapter.NEITHER);
+        return demoAdapter;
     }
+
+
+    @Override
+    public Loader<List<MediaStoreData>> onCreateLoader(int id, Bundle args) {
+        return new MediaStoreDataLoader(this);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<List<MediaStoreData>> loader, List<MediaStoreData> data) {
+        demoAdapter.addAll(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<MediaStoreData>> loader) {
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        String path = Environment.getExternalStorageDirectory().getPath();
+        String name = "111.jpg";
+        MediaHelper.camera(this, path, name);
+    }
+
+
 }

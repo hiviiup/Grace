@@ -12,7 +12,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:title="Toolbar"
-        app:titleTextAppearance="?attr/titleTextStyle"/>
+        app:titleTextAppearance="?attr/titleTextStyle" />
 
     <LinearLayout
         android:id="@+id/rl_root_view"

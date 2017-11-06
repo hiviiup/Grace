@@ -1,6 +1,7 @@
 package com.evayinfo.grace.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 /**
@@ -16,11 +17,11 @@ public class SharedPreUtils {
         sharedPreferences = AppUtils.context().getSharedPreferences(name, mode);
     }
 
-    public static void instance(String name) {
-        instance(name, Context.MODE_PRIVATE);
+    public static SharedPreUtils instance(String name) {
+        return instance(name, Context.MODE_PRIVATE);
     }
 
-    public static void instance(String name, int mode) {
+    public static SharedPreUtils instance(String name, int mode) {
         if (INSTANCE == null) {
             synchronized (SharedPreUtils.class) {
                 if (INSTANCE == null) {
@@ -28,6 +29,8 @@ public class SharedPreUtils {
                 }
             }
         }
+
+        return INSTANCE;
     }
 
     public SharedPreUtils putString(String key, String value) {
