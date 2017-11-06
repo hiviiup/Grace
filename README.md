@@ -10,12 +10,12 @@
   
 >2. 修改style.xml
   将parent 修改成 noactionbar
-
-   <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar"> 
+```xml
+   <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar"> 
         <item name="colorPrimary">@color/colorPrimary</item> 
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item> 
         <item name="colorAccent">@color/colorAccent</item> 
-	</style>
+	</style> ```
  
     
 
