@@ -114,7 +114,7 @@ public class MediaStoreDataLoader extends AsyncTaskLoader<List<MediaStoreData>> 
     private List<MediaStoreData> query(Uri contentUri, String[] projection, String sortByCol,
                                        String idCol, String dateTakenCol, String dateModifiedCol, String mimeTypeCol,
                                        String orientationCol, MediaStoreData.Type type) {
-        final List<MediaStoreData> data = new ArrayList<MediaStoreData>();
+        final List<MediaStoreData> data = new ArrayList<>();
         Cursor cursor = getContext().getContentResolver()
                 .query(contentUri, projection, null, null, sortByCol + " DESC");
 

@@ -5,15 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.evayinfo.grace.base.BaseRecyclerAdapter;
+import com.evayinfo.grace.media.MediaHelper;
 import com.evayinfo.grace.media.MediaStoreData;
 import com.evayinfo.grace.utils.ImageUtils;
 import com.evayinfo.grace.utils.LogUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

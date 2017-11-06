@@ -25,7 +25,7 @@ public class MainActivity extends BaseListActivity implements LoaderCallbacks<Li
     @Override
     protected void init() {
         super.init();
-//        getSupportLoaderManager().initLoader(R.id.loader_media_store_data_load, null, this);
+        getSupportLoaderManager().initLoader(R.id.loader_media_store_data_load, null, this);
     }
 
     @Override
@@ -55,6 +55,7 @@ public class MainActivity extends BaseListActivity implements LoaderCallbacks<Li
     @Override
     public void onLoadFinished(Loader<List<MediaStoreData>> loader, List<MediaStoreData> data) {
         demoAdapter.addAll(data);
+        getSupportLoaderManager().destroyLoader(R.id.loader_media_store_data_load);
     }
 
     @Override
@@ -64,9 +65,7 @@ public class MainActivity extends BaseListActivity implements LoaderCallbacks<Li
 
     @Override
     public void onBackPressed() {
-        String path = Environment.getExternalStorageDirectory().getPath();
-        String name = "111.jpg";
-        MediaHelper.camera(this, path, name);
+        super.onBackPressed();
     }
 
 

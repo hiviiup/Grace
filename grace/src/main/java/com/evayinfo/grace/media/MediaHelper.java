@@ -2,6 +2,7 @@ package com.evayinfo.grace.media;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
@@ -26,8 +27,17 @@ public class MediaHelper {
      * @param uri
      * @return
      */
-    public static String translateUriToPath(Uri uri) {
-        return "";
+    public static String convertUriToPath(Uri uri, String selection) {
+        String path = null;
+        Cursor cursor = AppUtils.context().getContentResolver().query(uri, null, selection, null, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            }
+
+            cursor.close();
+        }
+        return path;
     }
 
     /**
@@ -49,8 +59,6 @@ public class MediaHelper {
      * @param path      图片保存路径
      * @param imageName 图片名称
      */
-
-
     public static void camera(Activity activity, String path, String imageName) {
         Uri imageUri;
         File file = new File(path, imageName);
