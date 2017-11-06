@@ -27,6 +27,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item> 
         <item name="colorAccent">@color/colorAccent</item> 
 	</style>
-    ```
+ 
     
 
+
+V2.1.0 更新功能：
+1. 新增获取手机图片列表功能
+2. 新增调用系统相机功能
+3. 新增图片Uri转Path工具
