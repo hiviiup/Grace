@@ -15,7 +15,8 @@
         <item name="colorPrimary">@color/colorPrimary</item> 
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item> 
         <item name="colorAccent">@color/colorAccent</item> 
-	</style> ```
+	</style>
+```
  
     
 
