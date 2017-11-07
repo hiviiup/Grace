@@ -188,54 +188,12 @@ public class DeviceUtils {
                 }
             }
         } catch (SocketException e) {
+            e.printStackTrace();
         }
         return null;
     }
 
-    /** 获取屏幕的分辨率 */
-    @SuppressWarnings("deprecation")
-    public static int[] getResolution() {
-        Context context = AppUtils.context();
-        if (null == context) {
-            return null;
-        }
-        WindowManager windowMgr = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        int[] res = new int[2];
-        res[0] = windowMgr.getDefaultDisplay().getWidth();
-        res[1] = windowMgr.getDefaultDisplay().getHeight();
-        return res;
-    }
 
-    /** 获得设备的横向dpi */
-    public static float getWidthDpi() {
-        Context context = AppUtils.context();
-        if (null == context) {
-            return 0;
-        }
-        DisplayMetrics dm = null;
-        try {
-            if (context != null) {
-                dm = new DisplayMetrics();
-                dm = context.getApplicationContext().getResources().getDisplayMetrics();
-            }
-
-            return dm.densityDpi;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
-
-    /** 获得设备的纵向dpi */
-    public static float getHeightDpi() {
-        Context context = AppUtils.context();
-        if (null == context) {
-            return 0;
-        }
-        DisplayMetrics dm = new DisplayMetrics();
-        dm = context.getApplicationContext().getResources().getDisplayMetrics();
-        return dm.ydpi;
-    }
 
     /** 获取设备信息 */
     public static String[] getDivceInfo() {
@@ -256,6 +214,7 @@ public class DeviceUtils {
             cpuInfo[1] += arrayOfString[2];
             localBufferedReader.close();
         } catch (IOException e) {
+            e.printStackTrace();
         }
         return cpuInfo;
     }
@@ -290,6 +249,7 @@ public class DeviceUtils {
                 return resualStr;
             }
         } catch (IOException e) {
+            e.printStackTrace();
         }
         return resualStr;
     }

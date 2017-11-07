@@ -7,25 +7,32 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 
 import com.evayinfo.grace.base.BaseRecyclerAdapter;
+import com.evayinfo.grace.base.activity.BaseActivity;
 import com.evayinfo.grace.base.activity.BaseListActivity;
 import com.evayinfo.grace.media.MediaHelper;
 import com.evayinfo.grace.media.MediaStoreData;
 import com.evayinfo.grace.media.MediaStoreDataLoader;
+import com.evayinfo.grace.media.PhotoSelectActivity;
 
 import java.util.List;
 import java.util.logging.Logger;
 
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
-public class MainActivity extends BaseListActivity implements LoaderCallbacks<List<MediaStoreData>> {
+public class MainActivity extends BaseActivity {
 
     private DemoAdapter demoAdapter;
 
     @Override
     protected void init() {
         super.init();
-        getSupportLoaderManager().initLoader(R.id.loader_media_store_data_load, null, this);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_main;
     }
 
     @Override
@@ -40,28 +47,11 @@ public class MainActivity extends BaseListActivity implements LoaderCallbacks<Li
 
     }
 
-    @Override
-    protected BaseRecyclerAdapter getAdapter() {
-        demoAdapter = new DemoAdapter(this, BaseRecyclerAdapter.NEITHER);
-        return demoAdapter;
+    @OnClick(R.id.btn)
+    void openPhotoSelected() {
+        PhotoSelectActivity.show(this);
     }
 
-
-    @Override
-    public Loader<List<MediaStoreData>> onCreateLoader(int id, Bundle args) {
-        return new MediaStoreDataLoader(this);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<List<MediaStoreData>> loader, List<MediaStoreData> data) {
-        demoAdapter.addAll(data);
-        getSupportLoaderManager().destroyLoader(R.id.loader_media_store_data_load);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<List<MediaStoreData>> loader) {
-
-    }
 
     @Override
     public void onBackPressed() {

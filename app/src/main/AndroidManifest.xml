@@ -28,6 +28,10 @@
             android:name=".CaptureActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name="com.evayinfo.grace.media.PhotoSelectActivity"
+            android:screenOrientation="portrait" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="devin1024.grace.fileProvider"

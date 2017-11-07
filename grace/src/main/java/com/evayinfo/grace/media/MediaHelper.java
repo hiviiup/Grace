@@ -59,13 +59,20 @@ public class MediaHelper {
      * @param path      图片保存路径
      * @param imageName 图片名称
      */
-    public static void camera(Activity activity, String path, String imageName) {
+    public static Uri camera(Activity activity, String path, String imageName) {
+        return camera(activity, path, imageName,"devin1024.grace.fileProvider");
+    }
+
+    public static Uri camera(Activity activity, String path, String imageName,String authority) {
+        if (authority.isEmpty()) {
+            authority = "devin1024.grace.fileProvider";
+        }
         Uri imageUri;
         File file = new File(path, imageName);
         if (DeviceUtils.getOSVersionSDKINT() > 23) {
             try {
-                imageUri = FileProvider.getUriForFile(AppUtils.context(),
-                        "devin1024.grace.fileProvider", file);
+                imageUri = FileProvider.getUriForFile(AppUtils.context(),authority
+                        , file);
             } catch (NullPointerException e) {
                 throw new RuntimeException("请在Manifest中配置Provider，适配大于23的系统，具体适配参考方法注释中的代码");
             }
@@ -76,6 +83,7 @@ public class MediaHelper {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         activity.startActivityForResult(intent, REQUEST_CAMERA);
+        return imageUri;
     }
 
 }

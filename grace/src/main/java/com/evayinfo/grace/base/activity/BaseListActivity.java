@@ -3,6 +3,7 @@ package com.evayinfo.grace.base.activity;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 
@@ -41,8 +42,16 @@ public abstract class BaseListActivity extends BackActivity implements BackTopRe
         mRecyclerView = findViewById(R.id.rv);
 
         mRefreshLayout.setEnabled(false);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(getLayoutManager());
         if (getAdapter() != null) mRecyclerView.setAdapter(getAdapter());
+    }
+
+    public RecyclerView.LayoutManager getLayoutManager() {
+        return new LinearLayoutManager(this);
+    }
+
+    public RecyclerView getRecyclerView() {
+        return mRecyclerView;
     }
 
 
