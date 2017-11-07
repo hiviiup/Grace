@@ -71,8 +71,7 @@ public class MediaHelper {
         File file = new File(path, imageName);
         if (DeviceUtils.getOSVersionSDKINT() > 23) {
             try {
-                imageUri = FileProvider.getUriForFile(AppUtils.context(),authority
-                        , file);
+                imageUri = FileProvider.getUriForFile(AppUtils.context(),authority, file);
             } catch (NullPointerException e) {
                 throw new RuntimeException("请在Manifest中配置Provider，适配大于23的系统，具体适配参考方法注释中的代码");
             }

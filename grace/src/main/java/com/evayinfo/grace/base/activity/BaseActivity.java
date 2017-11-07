@@ -1,6 +1,5 @@
 package com.evayinfo.grace.base.activity;
 
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -9,7 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 
 import com.evayinfo.grace.R;
@@ -71,8 +69,8 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 初始化View
      */
     protected void initView() {
-        ViewGroup rootView = findViewById(R.id.rl_root_view);
-        View.inflate(this, getLayoutId(), rootView);
+        ViewGroup activityViewContainer = findViewById(R.id.ll_activity_view_container);
+        View.inflate(this, getLayoutId(), activityViewContainer);
     }
 
     /**

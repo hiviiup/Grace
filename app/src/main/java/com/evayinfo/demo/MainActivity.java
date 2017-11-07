@@ -49,7 +49,7 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.btn)
     void openPhotoSelected() {
-        PhotoSelectActivity.show(this);
+        PhotoSelectActivity.show(this, true);
     }
 
 
