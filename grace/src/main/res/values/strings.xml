@@ -19,4 +19,5 @@
     <string name="msg_camera_framework_bug">抱歉，Android相机出现问题。您可能需要重启设备。</string>
     <string name="button_ok">确定</string>
     <string name="action_settings">设置</string>
+    <string name="done">完成</string>
 </resources>

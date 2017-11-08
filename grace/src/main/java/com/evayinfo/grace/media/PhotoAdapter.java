@@ -5,6 +5,7 @@ import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -14,16 +15,21 @@ import com.evayinfo.grace.base.BaseRecyclerAdapter;
 import com.evayinfo.grace.utils.ImageUtils;
 import com.evayinfo.grace.utils.ScreenUtils;
 
+import java.util.ArrayList;
+
 /**
  * Created by DEVIN on 2017/11/7.
  */
 
 public class PhotoAdapter extends BaseRecyclerAdapter<MediaStoreData> {
     private boolean isMultiSelect;
+    private OnPhotoSelectListener mOnPhotoSelectListener;
+    private ArrayList<MediaStoreData> selectedItems;
 
-    PhotoAdapter(Context context, int mode, boolean isMultiSelect) {
+    PhotoAdapter(Context context, int mode, boolean isMultiSelect, ArrayList<MediaStoreData> selectedItems) {
         super(context, mode);
         this.isMultiSelect = isMultiSelect;
+        this.selectedItems = selectedItems;
     }
 
     @Override
@@ -32,11 +38,22 @@ public class PhotoAdapter extends BaseRecyclerAdapter<MediaStoreData> {
     }
 
     @Override
-    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, MediaStoreData item, int position) {
+    protected void onBindDefaultViewHolder(RecyclerView.ViewHolder holder, final MediaStoreData item, final int position) {
         PhotoHolder ph = (PhotoHolder) holder;
         ImageUtils.loadImage(item.uri, ph.ivPhoto);
         ph.shadowView.setVisibility(ph.cbPhoto.isChecked() && isMultiSelect ? View.VISIBLE : View.GONE);
+
+        ph.cbPhoto.setOnCheckedChangeListener(null);
+        ph.cbPhoto.setChecked((isMultiSelect && selectedItems != null) && selectedItems.contains(item));
+        ph.cbPhoto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mOnPhotoSelectListener.OnPhotoSelectListener(item, position, buttonView,isChecked);
+            }
+        });
         ph.cbPhoto.setVisibility(isMultiSelect ? View.VISIBLE : View.GONE);
+        ph.shadowView.setVisibility(isMultiSelect && ph.cbPhoto.isChecked() ? View.VISIBLE : View.GONE);
+
     }
 
     private class PhotoHolder extends RecyclerView.ViewHolder {
@@ -68,6 +85,16 @@ public class PhotoAdapter extends BaseRecyclerAdapter<MediaStoreData> {
             cbPhoto = selectView.findViewById(R.id.cb_photo_select);
             container.addView(selectView);
 
+
         }
     }
+
+    public interface OnPhotoSelectListener {
+        void OnPhotoSelectListener(MediaStoreData item, int position, CompoundButton buttonView, boolean isChecked);
+    }
+
+    public void setOnPhotoSelectListener(OnPhotoSelectListener listener) {
+        this.mOnPhotoSelectListener = listener;
+    }
+
 }

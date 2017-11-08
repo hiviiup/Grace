@@ -13,6 +13,7 @@ import com.evayinfo.grace.media.MediaHelper;
 import com.evayinfo.grace.media.MediaStoreData;
 import com.evayinfo.grace.media.MediaStoreDataLoader;
 import com.evayinfo.grace.media.PhotoSelectActivity;
+import com.evayinfo.grace.media.PhotoSelectConfig;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -49,7 +50,7 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.btn)
     void openPhotoSelected() {
-        PhotoSelectActivity.show(this, true);
+        PhotoSelectActivity.show(this, new PhotoSelectConfig(true, 8));
     }
 
 

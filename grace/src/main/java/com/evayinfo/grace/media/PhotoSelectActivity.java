@@ -1,24 +1,24 @@
 package com.evayinfo.grace.media;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 
 import com.evayinfo.grace.R;
 import com.evayinfo.grace.base.BaseRecyclerAdapter;
 import com.evayinfo.grace.base.activity.BaseListActivity;
 import com.evayinfo.grace.utils.AppUtils;
-import com.evayinfo.grace.utils.ScreenUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,18 +28,27 @@ import java.util.List;
 
 public class PhotoSelectActivity extends BaseListActivity
         implements LoaderManager.LoaderCallbacks<List<MediaStoreData>>,
-        BaseRecyclerAdapter.OnItemClickListener {
+        BaseRecyclerAdapter.OnItemClickListener, PhotoAdapter.OnPhotoSelectListener, View.OnClickListener {
 
+    private static final int REQUEST_PHOTO = 1002;
     private PhotoAdapter photoAdapter;
+    private ArrayList<MediaStoreData> selectedMediaStoreData;
+    private int maxSelectCount;
     private boolean isMultiSelect;
 
-    public static void show(Context context, boolean isMultiSelected) {
-        Intent intent = new Intent(context, PhotoSelectActivity.class);
+    public static void show(Activity activity, PhotoSelectConfig config) {
+        Intent intent = new Intent(activity, PhotoSelectActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("multi", isMultiSelected);
-        context.startActivity(intent);
+        intent.putExtra("multi", config);
+        activity.startActivityForResult(intent,REQUEST_PHOTO);
     }
 
+    public static void show(Fragment fragment, PhotoSelectConfig config) {
+        Intent intent = new Intent(fragment.getContext(), PhotoSelectActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("multi", config);
+        fragment.startActivityForResult(intent,REQUEST_PHOTO);
+    }
 
     @Override
     protected void init() {
@@ -50,7 +59,9 @@ public class PhotoSelectActivity extends BaseListActivity
     @Override
     protected void initBundles() {
         super.initBundles();
-        isMultiSelect = getIntent().getBooleanExtra("multi", false);
+        PhotoSelectConfig config = getIntent().getParcelableExtra("multi");
+        isMultiSelect = config.isMultiSelect();
+        maxSelectCount = config.getMaxSelectCount();
     }
 
     @Override
@@ -69,14 +80,18 @@ public class PhotoSelectActivity extends BaseListActivity
             //当选择多张图片时，显示底部菜单按钮
             final LinearLayout rootView = findViewById(R.id.ll_activity_base_view);
             final View selectMenuView = View.inflate(this, R.layout.abc_activity_photo_select_foot, null);
+            selectMenuView.findViewById(R.id.tv_done).setOnClickListener(this);
             rootView.addView(selectMenuView);
         }
     }
 
     @Override
     protected BaseRecyclerAdapter getAdapter() {
-        photoAdapter = new PhotoAdapter(this, BaseRecyclerAdapter.NEITHER, isMultiSelect);
+        if (isMultiSelect && selectedMediaStoreData == null)
+            selectedMediaStoreData = new ArrayList<>();
+        photoAdapter = new PhotoAdapter(this, BaseRecyclerAdapter.NEITHER, isMultiSelect, selectedMediaStoreData);
         photoAdapter.setOnItemClickListener(this);
+        photoAdapter.setOnPhotoSelectListener(this);
         return photoAdapter;
     }
 
@@ -100,8 +115,47 @@ public class PhotoSelectActivity extends BaseListActivity
     public void onLoaderReset(Loader<List<MediaStoreData>> loader) {
     }
 
+
+    @Override
+    public void onClick(View v) {
+        if (selectedMediaStoreData.size() == 0) {
+            AppUtils.toast("您未选择任何图片");
+            return;
+        }
+        Intent intent = new Intent();
+        intent.putExtra("photos", selectedMediaStoreData);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
     @Override
     public void onItemClick(int position, long itemId) {
+        if (isMultiSelect) {
+            //查看单张图片预览
 
+        } else {
+            Intent intent = new Intent();
+            intent.putExtra("photo", photoAdapter.getItem(position));
+            setResult(RESULT_OK, intent);
+            finish();
+        }
     }
+
+    @Override
+    public void OnPhotoSelectListener(MediaStoreData item, int position, CompoundButton buttonView, boolean isChecked) {
+        if (isMultiSelect) {
+            if (selectedMediaStoreData.size() >= maxSelectCount && isChecked) {
+                buttonView.setChecked(false);
+                AppUtils.toast("只能选择" + maxSelectCount + "张照片");
+                return;
+            }
+            if (isChecked && !selectedMediaStoreData.contains(item)) {
+                selectedMediaStoreData.add(item);
+            } else if (!isChecked && selectedMediaStoreData.contains(item)) {
+                selectedMediaStoreData.remove(item);
+            }
+            photoAdapter.notifyDataSetChanged();
+        }
+    }
+
 }
