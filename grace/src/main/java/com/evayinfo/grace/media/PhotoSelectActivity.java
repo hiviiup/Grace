@@ -38,7 +38,6 @@ public class PhotoSelectActivity extends BaseListActivity
 
     public static void show(Activity activity, PhotoSelectConfig config) {
         Intent intent = new Intent(activity, PhotoSelectActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("multi", config);
         activity.startActivityForResult(intent,REQUEST_PHOTO);
     }
