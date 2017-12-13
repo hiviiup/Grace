@@ -19,7 +19,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven {url 'https://bintray.com/devin1024/grace'}
+        maven {url 'https://jitpack.io'}
     }
 }
 

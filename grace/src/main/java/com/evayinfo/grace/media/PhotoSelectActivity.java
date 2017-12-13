@@ -44,7 +44,6 @@ public class PhotoSelectActivity extends BaseListActivity
 
     public static void show(Fragment fragment, PhotoSelectConfig config) {
         Intent intent = new Intent(fragment.getContext(), PhotoSelectActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("multi", config);
         fragment.startActivityForResult(intent,REQUEST_PHOTO);
     }
