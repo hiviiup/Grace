@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.evayinfo.grace.R;
 import com.evayinfo.grace.base.BaseRecyclerAdapter;
+import com.evayinfo.grace.base.RefreshType;
 import com.evayinfo.grace.base.activity.BaseActivity;
 import com.evayinfo.grace.view.BackTopRecyclerView;
 import com.evayinfo.grace.view.RecyclerRefreshLayout;
@@ -22,6 +23,9 @@ public abstract class BaseListFragment extends BaseFragment implements BackTopRe
     public FloatingActionButton mFloadtionActionButton;
     public RecyclerRefreshLayout mRefreshLayout;
     private BaseActivity parentActivity;
+
+    private int page = 1;
+    private boolean isRefreshing = true;
 
     @Override
     protected int getLayoutId() {
@@ -41,6 +45,72 @@ public abstract class BaseListFragment extends BaseFragment implements BackTopRe
         mRefreshLayout = view.findViewById(R.id.refresh_layout);
         mRefreshLayout.setEnabled(false);
     }
+
+
+    @Override
+    protected void initData() {
+        super.initData();
+        requestData(RefreshType.PULL_TO_REFRESH);
+    }
+
+    /**
+     * 列表使用分页加载和下拉刷新功能
+     */
+    public void setRefresh() {
+        mRefreshLayout.setCanLoadMore(true);
+        mRefreshLayout.setEnabled(true);
+        mRefreshLayout.setSuperRefreshLayoutListener(new RecyclerRefreshLayout.SuperRefreshLayoutListener() {
+            @Override
+            public void onRefreshing() {
+                if (isRefreshing) return;
+                isRefreshing = true;
+                requestData(RefreshType.PULL_TO_REFRESH);
+            }
+
+            @Override
+            public void onLoadMore() {
+                if (isRefreshing) return;
+                isRefreshing = true;
+                requestData(RefreshType.LOAD_MORE);
+            }
+        });
+    }
+
+
+    /**
+     * 加载数据
+     */
+    protected void requestData(RefreshType refreshType) {
+
+    }
+
+    public void onRequestComplete() {
+        isRefreshing = false;
+        mRefreshLayout.onComplete();
+    }
+
+    /**
+     * 递增页数
+     *
+     * @param refreshType
+     * @return
+     */
+    public int nextPage(RefreshType refreshType) {
+        page = refreshType == RefreshType.PULL_TO_REFRESH ? 1 : page + 1;
+        return page;
+    }
+
+    /**
+     * 加载错误时，返回上一个页码
+     *
+     * @return
+     */
+    public int backPrePage() {
+        page = page - 1;
+        return page;
+    }
+
+
 
     /**
      * 显示返回顶部按钮
@@ -70,40 +140,9 @@ public abstract class BaseListFragment extends BaseFragment implements BackTopRe
         parentActivity.setTitle(this.title);
     }
 
-    /**
-     * 开启下拉刷新功能
-     */
-    protected void needRefresh(RecyclerRefreshLayout.SuperRefreshLayoutListener listener) {
-        mRefreshLayout.setEnabled(true);
-        mRefreshLayout.setSuperRefreshLayoutListener(listener);
-    }
 
-    /**
-     * 刷新完成
-     *
-     * @param isFinish 是否完成
-     */
-    protected void setRefreshing(boolean isFinish) {
-        mRefreshLayout.setRefreshing(isFinish);
-    }
-
-    protected void setLoading(boolean isLoad) {
-        mRefreshLayout.setOnLoading(isLoad);
-    }
-
-    protected void setCanLoad(boolean canLoad) {
-        mRefreshLayout.setCanLoadMore(canLoad);
-    }
 
     protected abstract BaseRecyclerAdapter getAdapter();
-
-    /**
-     * 加载数据
-     */
-    protected void requestData() {
-
-    }
-
 
     @Override
     public void onScrollToTop() {

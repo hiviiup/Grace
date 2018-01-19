@@ -23,8 +23,8 @@ public abstract class BaseListActivity extends BackActivity implements BackTopRe
     BackTopRecyclerView mRecyclerView;
     FloatingActionButton mFab;
     String title;
-    public int page = 1;
-    public boolean isRefreshing = true;
+    private int page = 1;
+    private boolean isRefreshing = true;
 
     @Override
     public int getLayoutId() {
@@ -64,11 +64,15 @@ public abstract class BaseListActivity extends BackActivity implements BackTopRe
         mRefreshLayout.setSuperRefreshLayoutListener(new RecyclerRefreshLayout.SuperRefreshLayoutListener() {
             @Override
             public void onRefreshing() {
+                if (isRefreshing) return;
+                isRefreshing = true;
                 requestData(RefreshType.PULL_TO_REFRESH);
             }
 
             @Override
             public void onLoadMore() {
+                if (isRefreshing) return;
+                isRefreshing = true;
                 requestData(RefreshType.LOAD_MORE);
             }
         });
@@ -83,19 +87,6 @@ public abstract class BaseListActivity extends BackActivity implements BackTopRe
         return mRecyclerView;
     }
 
-    /**
-     * 刷新完成
-     *
-     * @param isFinish 是否完成
-     */
-    protected void setRefreshing(boolean isFinish) {
-        mRefreshLayout.setRefreshing(isFinish);
-    }
-
-    protected void setLoading(boolean isLoad) {
-        mRefreshLayout.setOnLoading(isLoad);
-    }
-
 
     protected abstract BaseRecyclerAdapter getAdapter();
 
@@ -104,6 +95,32 @@ public abstract class BaseListActivity extends BackActivity implements BackTopRe
      */
     protected void requestData(RefreshType refreshType) {
 
+    }
+
+    public void onRequestComplete() {
+        isRefreshing = false;
+        mRefreshLayout.onComplete();
+    }
+
+    /**
+     * 递增页数
+     *
+     * @param refreshType
+     * @return
+     */
+    public int nextPage(RefreshType refreshType) {
+        page = refreshType == RefreshType.PULL_TO_REFRESH ? 1 : page + 1;
+        return page;
+    }
+
+    /**
+     * 加载错误时，返回上一个页码
+     *
+     * @return
+     */
+    public int backPrePage() {
+        page = page - 1;
+        return page;
     }
 
     @Override
