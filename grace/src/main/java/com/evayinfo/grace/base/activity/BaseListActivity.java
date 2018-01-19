@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.evayinfo.grace.R;
 import com.evayinfo.grace.base.BaseRecyclerAdapter;
+import com.evayinfo.grace.base.RefreshType;
 import com.evayinfo.grace.view.BackTopRecyclerView;
 import com.evayinfo.grace.view.RecyclerRefreshLayout;
 
@@ -22,6 +23,8 @@ public abstract class BaseListActivity extends BackActivity implements BackTopRe
     BackTopRecyclerView mRecyclerView;
     FloatingActionButton mFab;
     String title;
+    public int page = 1;
+    public boolean isRefreshing = true;
 
     @Override
     public int getLayoutId() {
@@ -46,12 +49,71 @@ public abstract class BaseListActivity extends BackActivity implements BackTopRe
         if (getAdapter() != null) mRecyclerView.setAdapter(getAdapter());
     }
 
+    @Override
+    protected void initData() {
+        super.initData();
+        requestData(RefreshType.PULL_TO_REFRESH);
+    }
+
+    /**
+     * 列表使用分页加载和下拉刷新功能
+     */
+    public void setRefresh() {
+        mRefreshLayout.setCanLoadMore(true);
+        mRefreshLayout.setEnabled(true);
+        mRefreshLayout.setSuperRefreshLayoutListener(new RecyclerRefreshLayout.SuperRefreshLayoutListener() {
+            @Override
+            public void onRefreshing() {
+                requestData(RefreshType.PULL_TO_REFRESH);
+            }
+
+            @Override
+            public void onLoadMore() {
+                requestData(RefreshType.LOAD_MORE);
+            }
+        });
+    }
+
+
     public RecyclerView.LayoutManager getLayoutManager() {
         return new LinearLayoutManager(this);
     }
 
     public RecyclerView getRecyclerView() {
         return mRecyclerView;
+    }
+
+    /**
+     * 刷新完成
+     *
+     * @param isFinish 是否完成
+     */
+    protected void setRefreshing(boolean isFinish) {
+        mRefreshLayout.setRefreshing(isFinish);
+    }
+
+    protected void setLoading(boolean isLoad) {
+        mRefreshLayout.setOnLoading(isLoad);
+    }
+
+
+    protected abstract BaseRecyclerAdapter getAdapter();
+
+    /**
+     * 加载数据
+     */
+    protected void requestData(RefreshType refreshType) {
+
+    }
+
+    @Override
+    public void onScrollToTop() {
+        setTitle("点击标题返回顶部");
+    }
+
+    @Override
+    public void onScrollIdle() {
+        setTitle(title);
     }
 
 
@@ -71,49 +133,4 @@ public abstract class BaseListActivity extends BackActivity implements BackTopRe
         this.title = title;
     }
 
-
-    /**
-     * 开启下拉刷新功能
-     */
-    protected void needRefresh(RecyclerRefreshLayout.SuperRefreshLayoutListener listener) {
-        mRefreshLayout.setEnabled(true);
-        mRefreshLayout.setSuperRefreshLayoutListener(listener);
-    }
-
-    /**
-     * 刷新完成
-     *
-     * @param isFinish 是否完成
-     */
-    protected void setRefreshing(boolean isFinish) {
-        mRefreshLayout.setRefreshing(isFinish);
-    }
-
-    protected void setLoading(boolean isLoad) {
-        mRefreshLayout.setOnLoading(isLoad);
-    }
-
-    protected void setCanLoad(boolean canLoad) {
-        mRefreshLayout.setCanLoadMore(canLoad);
-    }
-
-
-    protected abstract BaseRecyclerAdapter getAdapter();
-
-    /**
-     * 加载数据
-     */
-    protected void requestData() {
-
-    }
-
-    @Override
-    public void onScrollToTop() {
-        setTitle("点击标题返回顶部");
-    }
-
-    @Override
-    public void onScrollIdle() {
-        setTitle(title);
-    }
 }
