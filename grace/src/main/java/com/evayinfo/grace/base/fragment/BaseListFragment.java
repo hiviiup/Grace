@@ -25,6 +25,8 @@ public abstract class BaseListFragment extends BaseFragment implements BackTopRe
     private BaseActivity parentActivity;
 
     private int page = 1;
+    private int totalPage = 0;
+
     private boolean isRefreshing = true;
 
     @Override
@@ -69,6 +71,10 @@ public abstract class BaseListFragment extends BaseFragment implements BackTopRe
 
             @Override
             public void onLoadMore() {
+                if (page == totalPage) {
+                    onRequestComplete();
+                    return;
+                }
                 if (isRefreshing) return;
                 isRefreshing = true;
                 requestData(RefreshType.LOAD_MORE);
@@ -82,6 +88,15 @@ public abstract class BaseListFragment extends BaseFragment implements BackTopRe
      */
     protected void requestData(RefreshType refreshType) {
 
+    }
+
+    /**
+     * 设置总页码数量
+     *
+     * @param pageNum
+     */
+    public void setTotalPage(int pageNum) {
+        totalPage = pageNum;
     }
 
     public void onRequestComplete() {
@@ -111,7 +126,6 @@ public abstract class BaseListFragment extends BaseFragment implements BackTopRe
     }
 
 
-
     /**
      * 显示返回顶部按钮
      */
@@ -139,7 +153,6 @@ public abstract class BaseListFragment extends BaseFragment implements BackTopRe
         this.title = title;
         parentActivity.setTitle(this.title);
     }
-
 
 
     protected abstract BaseRecyclerAdapter getAdapter();

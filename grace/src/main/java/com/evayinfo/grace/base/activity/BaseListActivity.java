@@ -24,6 +24,7 @@ public abstract class BaseListActivity extends BackActivity implements BackTopRe
     FloatingActionButton mFab;
     String title;
     private int page = 1;
+    private int totalPage = 0;
     private boolean isRefreshing = true;
 
     @Override
@@ -71,6 +72,10 @@ public abstract class BaseListActivity extends BackActivity implements BackTopRe
 
             @Override
             public void onLoadMore() {
+                if (page == totalPage) {
+                    onRequestComplete();
+                    return;
+                }
                 if (isRefreshing) return;
                 isRefreshing = true;
                 requestData(RefreshType.LOAD_MORE);
@@ -95,6 +100,10 @@ public abstract class BaseListActivity extends BackActivity implements BackTopRe
      */
     protected void requestData(RefreshType refreshType) {
 
+    }
+
+    public void setTotalPage(int pageNum) {
+        totalPage = pageNum;
     }
 
     public void onRequestComplete() {
