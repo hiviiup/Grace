@@ -38,7 +38,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 初始化一些配置信息
      */
-    protected void init() {
+    public void init() {
     }
 
     /**
@@ -46,19 +46,19 @@ public abstract class BaseActivity extends AppCompatActivity {
      *
      * @return 返回布局id
      */
-    protected abstract int getLayoutId();
+    public abstract int getLayoutId();
 
     /**
      * 初始化Extras
      */
-    protected void initBundles() {
+    public void initBundles() {
 
     }
 
     /**
      * 初始化标题栏
      */
-    protected void initTitleBar() {
+    public void initTitleBar() {
         toolbar = findViewById(R.id.title_bar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -68,7 +68,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 初始化View
      */
-    protected void initView() {
+    public void initView() {
         ViewGroup activityViewContainer = findViewById(R.id.ll_activity_view_container);
         View.inflate(this, getLayoutId(), activityViewContainer);
     }
@@ -76,14 +76,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 数据处理
      */
-    protected void initData() {
+    public void initData() {
 
     }
 
     /**
      * 设置监听事件
      */
-    protected void addListener() {
+    public void addListener() {
 
     }
 
@@ -92,7 +92,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      *
      * @return
      */
-    protected boolean hasActionbar() {
+    public boolean hasActionbar() {
         return getSupportActionBar() != null;
     }
 
@@ -141,7 +141,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      *
      * @param isBack 是否需要返回按钮
      */
-    protected void setBack(boolean isBack) {
+    public void setBack(boolean isBack) {
         if (hasActionbar()) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(isBack);
         }

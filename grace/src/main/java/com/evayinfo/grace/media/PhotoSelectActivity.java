@@ -49,13 +49,13 @@ public class PhotoSelectActivity extends BaseListActivity
     }
 
     @Override
-    protected void init() {
+    public void init() {
         super.init();
         getSupportLoaderManager().initLoader(R.id.loader_media_store_data_load, null, this);
     }
 
     @Override
-    protected void initBundles() {
+    public void initBundles() {
         super.initBundles();
         PhotoSelectConfig config = getIntent().getParcelableExtra("multi");
         isMultiSelect = config.isMultiSelect();
@@ -70,7 +70,7 @@ public class PhotoSelectActivity extends BaseListActivity
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
         super.initView();
         getRecyclerView().setBackgroundColor(0xFF353535);
 

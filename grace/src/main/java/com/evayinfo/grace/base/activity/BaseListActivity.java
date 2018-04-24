@@ -38,7 +38,7 @@ public abstract class BaseListActivity extends BackActivity implements BackTopRe
     }
 
     @Override
-    protected void initView() {
+    public void initView() {
         super.initView();
 
         mRefreshLayout = findViewById(R.id.refresh_layout);
@@ -51,7 +51,7 @@ public abstract class BaseListActivity extends BackActivity implements BackTopRe
     }
 
     @Override
-    protected void initData() {
+    public void initData() {
         super.initData();
         requestData(RefreshType.PULL_TO_REFRESH);
     }
