@@ -35,16 +35,15 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.evayinfo.grace.R;
-import com.evayinfo.grace.base.activity.BackActivity;
 import com.evayinfo.grace.zxing.camera.CameraManager;
 import com.evayinfo.grace.zxing.decode.DecodeThread;
 import com.evayinfo.grace.zxing.utils.BeepManager;
 import com.evayinfo.grace.zxing.utils.CaptureActivityHandler;
 import com.evayinfo.grace.zxing.utils.InactivityTimer;
 import com.google.zxing.Result;
+
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -58,8 +57,8 @@ import java.lang.reflect.Field;
  * @author dswitkin@google.com (Daniel Switkin)
  * @author Sean Owen
  */
-public abstract class CaptureActivity extends AppCompatActivity implements
-        SurfaceHolder.Callback {
+public class CaptureActivity extends AppCompatActivity implements
+        SurfaceHolder.Callback, View.OnClickListener {
 
     private static final String TAG = CaptureActivity.class.getSimpleName();
 
@@ -78,18 +77,18 @@ public abstract class CaptureActivity extends AppCompatActivity implements
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        setContentView(getLayoutId());
-        scanPreview = getScanPreView();
+        setContentView(R.layout.activity_qr_scan);
+
+        scanPreview = (SurfaceView) findViewById(R.id.capture_preview);
         // Install the callback and wait for surfaceCreated() to init the
         // camera.
         scanPreview.getHolder().addCallback(this);
+
         initCamera();
     }
-
-    protected abstract int getLayoutId();
-
 
     @Override
     protected void onResume() {
@@ -147,6 +146,17 @@ public abstract class CaptureActivity extends AppCompatActivity implements
 
     private boolean isHasSurface = false;
 
+//    @SuppressLint("NewApi")
+//    @Override
+//    protected boolean hasActionBar() {
+//        if (android.os.Build.VERSION.SDK_INT >= 11) {
+//            getSupportActionBar().hide();
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         if (holder == null) {
@@ -177,16 +187,18 @@ public abstract class CaptureActivity extends AppCompatActivity implements
     public void handleDecode(final Result rawResult, Bundle bundle) {
         inactivityTimer.onActivity();
         beepManager.playBeepSoundAndVibrate();
+        handler.postDelayed(new Runnable() {
 
-        // 通过这种方式可以获取到扫描的图片
-        //	bundle.putInt("width", mCropRect.width());
-        //	bundle.putInt("height", mCropRect.height());
-        //	bundle.putString("result", rawResult.getText());
-        //
-        //	startActivity(new Intent(CaptureActivity.this, ResultActivity.class)
-        //		.putExtras(bundle));
+            @Override
+            public void run() {
+                handleText(rawResult.getText());
+            }
+        }, 800);
     }
 
+    private void handleText(String text) {
+
+    }
 
     private void initCamera(SurfaceHolder surfaceHolder) {
         if (cameraManager == null)
@@ -217,7 +229,6 @@ public abstract class CaptureActivity extends AppCompatActivity implements
     }
 
     private void displayFrameworkBugMessageAndExit() {
-        Toast.makeText(this, "未获取相机权限", Toast.LENGTH_LONG).show();
     }
 
     public void restartPreviewAfterDelay(long delayMS) {
@@ -279,10 +290,17 @@ public abstract class CaptureActivity extends AppCompatActivity implements
         return 0;
     }
 
+    @Override
+    public void onClick(View v) {
+        int i = v.getId();
+        if (i == R.id.capture_flash) {
+            light();
+        }
+    }
 
     private boolean mIsLight;
 
-    public boolean light() {
+    private void light() {
         try {
             if (mIsLight) {
                 // 关闪光灯
@@ -293,54 +311,31 @@ public abstract class CaptureActivity extends AppCompatActivity implements
                 cameraManager.openLight();
                 mIsLight = true;
             }
-
-            return mIsLight;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
     }
 
-    /**
-     * 相机预览view
-     *
-     * @return
-     */
-    protected abstract SurfaceView getScanPreView();
-
-
     private void initCamera() {
-        scanContainer = getScanContainer();
-        scanCropView = getCropView();
+        scanContainer = (RelativeLayout) findViewById(R.id.capture_container);
+        scanCropView = (RelativeLayout) findViewById(R.id.capture_crop_view);
+        ImageView scanLine = (ImageView) findViewById(R.id.capture_scan_line);
+        mFlash = (ImageView) findViewById(R.id.capture_flash);
+        mFlash.setOnClickListener(this);
 
         inactivityTimer = new InactivityTimer(this);
         beepManager = new BeepManager(this);
-//
-//        TranslateAnimation animation = new TranslateAnimation(
-//                Animation.RELATIVE_TO_PARENT, 0.0f,
-//                Animation.RELATIVE_TO_PARENT, 0.0f,
-//                Animation.RELATIVE_TO_PARENT, 0.0f,
-//                Animation.RELATIVE_TO_PARENT, 0.9f);
-//        animation.setDuration(4500);
-//        animation.setRepeatCount(-1);
-//        animation.setRepeatMode(Animation.RESTART);
+
+        TranslateAnimation animation = new TranslateAnimation(
+                Animation.RELATIVE_TO_PARENT, 0.0f,
+                Animation.RELATIVE_TO_PARENT, 0.0f,
+                Animation.RELATIVE_TO_PARENT, 0.0f,
+                Animation.RELATIVE_TO_PARENT, 0.9f);
+        animation.setDuration(4500);
+        animation.setRepeatCount(-1);
+        animation.setRepeatMode(Animation.RESTART);
+        scanLine.startAnimation(animation);
 
         cameraManager = new CameraManager(getApplication());
     }
-
-    /**
-     * 获取扫描框视图
-     *
-     * @return
-     */
-    protected abstract RelativeLayout getCropView();
-
-    /**
-     * 获取布局容器
-     *
-     * @return
-     */
-    protected abstract RelativeLayout getScanContainer();
-
-
 }
