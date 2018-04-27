@@ -77,7 +77,6 @@ public class CaptureActivityHandler extends Handler {
         } else if (message.what == R.id.return_scan_result) {
             activity.setResult(Activity.RESULT_OK, (Intent) message.obj);
             activity.finish();
-
         }
     }
 

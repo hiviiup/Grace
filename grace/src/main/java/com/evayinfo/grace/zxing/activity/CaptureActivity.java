@@ -23,6 +23,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.text.ClipboardManager;
 import android.util.Log;
 import android.view.SurfaceHolder;
@@ -47,8 +48,6 @@ import com.google.zxing.Result;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Map;
 
 /**
  * This activity opens the camera and does the actual scanning on a background
@@ -59,7 +58,7 @@ import java.util.Map;
  * @author dswitkin@google.com (Daniel Switkin)
  * @author Sean Owen
  */
-public abstract class CaptureActivity extends BackActivity implements
+public abstract class CaptureActivity extends AppCompatActivity implements
         SurfaceHolder.Callback {
 
     private static final String TAG = CaptureActivity.class.getSimpleName();
@@ -79,12 +78,17 @@ public abstract class CaptureActivity extends BackActivity implements
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-
+        setContentView(getLayoutId());
+        scanPreview = getScanPreView();
+        // Install the callback and wait for surfaceCreated() to init the
+        // camera.
+        scanPreview.getHolder().addCallback(this);
+        initCamera();
     }
+
+    protected abstract int getLayoutId();
 
 
     @Override
@@ -297,16 +301,6 @@ public abstract class CaptureActivity extends BackActivity implements
         }
     }
 
-    @Override
-    public void initView() {
-        scanPreview = getScanPreView();
-        // Install the callback and wait for surfaceCreated() to init the
-        // camera.
-        scanPreview.getHolder().addCallback(this);
-
-        initCamera();
-    }
-
     /**
      * 相机预览view
      *
@@ -314,9 +308,6 @@ public abstract class CaptureActivity extends BackActivity implements
      */
     protected abstract SurfaceView getScanPreView();
 
-    @Override
-    public void initData() {
-    }
 
     private void initCamera() {
         scanContainer = getScanContainer();
@@ -324,15 +315,15 @@ public abstract class CaptureActivity extends BackActivity implements
 
         inactivityTimer = new InactivityTimer(this);
         beepManager = new BeepManager(this);
-
-        TranslateAnimation animation = new TranslateAnimation(
-                Animation.RELATIVE_TO_PARENT, 0.0f,
-                Animation.RELATIVE_TO_PARENT, 0.0f,
-                Animation.RELATIVE_TO_PARENT, 0.0f,
-                Animation.RELATIVE_TO_PARENT, 0.9f);
-        animation.setDuration(4500);
-        animation.setRepeatCount(-1);
-        animation.setRepeatMode(Animation.RESTART);
+//
+//        TranslateAnimation animation = new TranslateAnimation(
+//                Animation.RELATIVE_TO_PARENT, 0.0f,
+//                Animation.RELATIVE_TO_PARENT, 0.0f,
+//                Animation.RELATIVE_TO_PARENT, 0.0f,
+//                Animation.RELATIVE_TO_PARENT, 0.9f);
+//        animation.setDuration(4500);
+//        animation.setRepeatCount(-1);
+//        animation.setRepeatMode(Animation.RESTART);
 
         cameraManager = new CameraManager(getApplication());
     }
