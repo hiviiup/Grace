@@ -22,32 +22,14 @@ import android.content.DialogInterface;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.ClipboardManager;
-import android.util.Log;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.evayinfo.grace.R;
-import com.evayinfo.grace.zxing.camera.CameraManager;
-import com.evayinfo.grace.zxing.decode.DecodeThread;
-import com.evayinfo.grace.zxing.utils.BeepManager;
-import com.evayinfo.grace.zxing.utils.CaptureActivityHandler;
-import com.evayinfo.grace.zxing.utils.InactivityTimer;
+import com.evayinfo.grace.base.activity.BackActivity;
+import com.evayinfo.grace.base.activity.BaseActivity;
 import com.google.zxing.Result;
 
-
-import java.io.IOException;
-import java.lang.reflect.Field;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -60,17 +42,27 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
  * @author dswitkin@google.com (Daniel Switkin)
  * @author Sean Owen
  */
-public class CaptureActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+public class CaptureActivity extends BackActivity implements ZXingScannerView.ResultHandler {
 
     ZXingScannerView scannerView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        scannerView = new ZXingScannerView(this);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_qr_scan;
+    }
+
+    @Override
+    public void initView() {
+        super.initView();
+
+        scannerView = findViewById(R.id.scanner_view);
         scannerView.setSquareViewFinder(true);
         scannerView.setIsBorderCornerRounded(true);
-        setContentView(scannerView);
     }
 
     @Override
