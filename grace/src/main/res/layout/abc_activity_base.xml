@@ -13,6 +13,8 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:title="Toolbar"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
         app:titleTextAppearance="?attr/titleTextStyle" />
 
     <LinearLayout
