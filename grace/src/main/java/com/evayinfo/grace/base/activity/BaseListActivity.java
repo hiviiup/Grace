@@ -43,6 +43,7 @@ public abstract class BaseListActivity extends BackActivity implements BackTopRe
     public void initView() {
         super.initView();
 
+        rlTopContainer = findViewById(R.id.rl_top_container);
         mRefreshLayout = findViewById(R.id.refresh_layout);
         mFab = findViewById(R.id.fab);
         mRecyclerView = findViewById(R.id.rv);
