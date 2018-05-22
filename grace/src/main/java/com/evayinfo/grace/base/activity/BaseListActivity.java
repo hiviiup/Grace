@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 
 import com.evayinfo.grace.R;
@@ -21,6 +22,7 @@ public abstract class BaseListActivity extends BackActivity implements BackTopRe
 
     RecyclerRefreshLayout mRefreshLayout;
     BackTopRecyclerView mRecyclerView;
+    RelativeLayout rlTopContainer;
     FloatingActionButton mFab;
     String title;
     private int page = 1;
@@ -48,6 +50,11 @@ public abstract class BaseListActivity extends BackActivity implements BackTopRe
         mRefreshLayout.setEnabled(false);
         mRecyclerView.setLayoutManager(getLayoutManager());
         if (getAdapter() != null) mRecyclerView.setAdapter(getAdapter());
+    }
+
+
+    public void addTopView(View view) {
+        rlTopContainer.addView(view);
     }
 
     @Override
@@ -110,6 +117,7 @@ public abstract class BaseListActivity extends BackActivity implements BackTopRe
         isRefreshing = false;
         mRefreshLayout.onComplete();
     }
+
 
     /**
      * 递增页数

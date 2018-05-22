@@ -24,6 +24,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.evayinfo.grace.R;
 import com.evayinfo.grace.base.activity.BackActivity;
@@ -48,12 +51,21 @@ public class CaptureActivity extends BackActivity implements ZXingScannerView.Re
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
     }
 
     @Override
     public int getLayoutId() {
         return R.layout.activity_qr_scan;
+    }
+
+    @Override
+    public void initTitleBar() {
+        super.initTitleBar();
+        toolbar.setVisibility(View.GONE);
     }
 
     @Override
