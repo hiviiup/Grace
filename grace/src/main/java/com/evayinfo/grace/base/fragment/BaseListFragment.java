@@ -4,6 +4,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 
 import com.evayinfo.grace.R;
@@ -21,6 +22,7 @@ public abstract class BaseListFragment extends BaseFragment implements BackTopRe
 
     public BackTopRecyclerView mRecyclerView;
     public FloatingActionButton mFloadtionActionButton;
+    public RelativeLayout rlTopContainer;
     public RecyclerRefreshLayout mRefreshLayout;
     private BaseActivity parentActivity;
 
@@ -37,6 +39,7 @@ public abstract class BaseListFragment extends BaseFragment implements BackTopRe
     @Override
     protected void initView(View view) {
         super.initView(view);
+        rlTopContainer = view.findViewById(R.id.rl_top_container);
         mRecyclerView = view.findViewById(R.id.rv);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if (getAdapter() != null) {

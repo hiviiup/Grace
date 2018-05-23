@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 
 import com.evayinfo.grace.R;
@@ -19,6 +20,8 @@ import com.evayinfo.grace.R;
  */
 public abstract class BaseActivity extends AppCompatActivity {
     public Toolbar toolbar;
+    public LinearLayout llRootLayout;
+    public LinearLayout llContentLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,6 +29,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (getLayoutId() != 0) {
             setContentView(R.layout.abc_activity_base);
         }
+
+        llContentLayout = findViewById(R.id.ll_activity_view_container);
+        llRootLayout = findViewById(R.id.ll_activity_base_view);
 
         init();
         initBundles();
