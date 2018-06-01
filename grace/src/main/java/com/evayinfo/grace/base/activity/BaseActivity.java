@@ -37,8 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         llRootLayout = findViewById(R.id.ll_activity_base_view);
 
         rlProgressbar = findViewById(R.id.rl_progressbar);
-//        ProgressBar progressBar = findViewById(R.id.progress_bar);
-
+        ProgressBar progressBar = findViewById(R.id.progress_bar);
         init();
         initBundles();
         initTitleBar();
