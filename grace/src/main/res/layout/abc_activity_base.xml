@@ -17,12 +17,35 @@
         app:title="Toolbar"
         app:titleTextAppearance="?attr/titleTextStyle" />
 
-    <LinearLayout
-        android:id="@+id/ll_activity_view_container"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#FFF"
-        android:orientation="vertical" />
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/ll_activity_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFF"
+            android:orientation="vertical" />
+
+
+        <RelativeLayout
+            android:id="@+id/rl_progressbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#66000000"
+            android:visibility="gone">
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/abc_progressbar_bg"
+                android:padding="20dp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 </LinearLayout>

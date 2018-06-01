@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 
 import com.evayinfo.grace.R;
@@ -22,6 +24,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public Toolbar toolbar;
     public LinearLayout llRootLayout;
     public LinearLayout llContentLayout;
+    private RelativeLayout rlProgressbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,6 +35,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         llContentLayout = findViewById(R.id.ll_activity_view_container);
         llRootLayout = findViewById(R.id.ll_activity_base_view);
+
+        rlProgressbar = findViewById(R.id.rl_progressbar);
+//        ProgressBar progressBar = findViewById(R.id.progress_bar);
 
         init();
         initBundles();
@@ -163,10 +169,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void showProgress() {
+        rlProgressbar.setVisibility(View.VISIBLE);
     }
 
     public void hideProgress() {
-
+        rlProgressbar.setVisibility(View.GONE);
     }
 
 }
