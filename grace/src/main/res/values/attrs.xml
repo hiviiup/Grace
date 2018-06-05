@@ -13,8 +13,8 @@
     </declare-styleable>
 
     <declare-styleable name="KVTextView">
-        <attr name="title" format="string" />
-        <attr name="content" format="string" />
+        <attr name="titleText" format="string" />
+        <attr name="contentText" format="string" />
         <attr name="titleColor" format="color" />
         <attr name="contentColor" format="color" />
         <attr name="titleSize" format="dimension" />
