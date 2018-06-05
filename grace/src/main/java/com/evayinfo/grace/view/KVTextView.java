@@ -43,8 +43,8 @@ public class KVTextView extends LinearLayout {
 
 
         TypedArray ta = context.getTheme().obtainStyledAttributes(attrs, R.styleable.KVTextView, defStyleAttr, 0);
-        String content = ta.getString(R.styleable.KVTextView_content);
-        String title = ta.getString(R.styleable.KVTextView_title);
+        String content = ta.getString(R.styleable.KVTextView_contentText);
+        String title = ta.getString(R.styleable.KVTextView_titleText);
         String contentHint = ta.getString(R.styleable.KVTextView_contentHint);
         int titleColor = ta.getColor(R.styleable.KVTextView_titleColor, 0xFF999999);
         int contentColor = ta.getColor(R.styleable.KVTextView_contentColor, 0xFF323232);
