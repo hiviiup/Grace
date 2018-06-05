@@ -12,4 +12,17 @@
         <attr name="border_color" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="KVTextView">
+        <attr name="title" format="string" />
+        <attr name="content" format="string" />
+        <attr name="titleColor" format="color" />
+        <attr name="contentColor" format="color" />
+        <attr name="titleSize" format="dimension" />
+        <attr name="contentSize" format="dimension" />
+        <attr name="isVertical" format="boolean" />
+        <attr name="isShowDividerLine" format="boolean" />
+        <attr name="canEdit" format="boolean" />
+        <attr name="contentHint" format="string" />
+    </declare-styleable>
+
 </resources>
