@@ -1,6 +1,5 @@
 package com.evayinfo.grace.base.fragment;
 
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -21,7 +20,6 @@ import com.evayinfo.grace.view.RecyclerRefreshLayout;
 public abstract class BaseListFragment extends BaseFragment implements BackTopRecyclerView.OnRecyclerViewScollToTopListener {
 
     public BackTopRecyclerView mRecyclerView;
-    public FloatingActionButton mFloadtionActionButton;
     public RelativeLayout rlTopContainer;
     public RecyclerRefreshLayout mRefreshLayout;
     private BaseActivity parentActivity;
@@ -46,7 +44,6 @@ public abstract class BaseListFragment extends BaseFragment implements BackTopRe
             mRecyclerView.setAdapter(getAdapter());
         }
 
-        mFloadtionActionButton = view.findViewById(R.id.fab);
         mRefreshLayout = view.findViewById(R.id.refresh_layout);
         mRefreshLayout.setEnabled(false);
     }
@@ -126,14 +123,6 @@ public abstract class BaseListFragment extends BaseFragment implements BackTopRe
     public int backPrePage() {
         page = page - 1;
         return page;
-    }
-
-
-    /**
-     * 显示返回顶部按钮
-     */
-    protected void clickButtonBackTop() {
-        mRecyclerView.setFloatingButton(mFloadtionActionButton);
     }
 
     /**

@@ -3,7 +3,6 @@ package com.evayinfo.grace.view;
 import android.app.ActionBar;
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -15,7 +14,6 @@ import android.view.View;
  */
 
 public class BackTopRecyclerView extends RecyclerView implements View.OnClickListener {
-    private FloatingActionButton mFloatingActionBtn;
 
     boolean isFabShow = false;
     boolean isScorllToTop = false;
@@ -40,16 +38,9 @@ public class BackTopRecyclerView extends RecyclerView implements View.OnClickLis
         addOnScrollListener(new BackTopScrollListener());
     }
 
-    public void setFloatingButton(FloatingActionButton btn) {
-        this.mFloatingActionBtn = btn;
-        this.mFloatingActionBtn.hide();
-        this.mFloatingActionBtn.setOnClickListener(this);
-    }
-
     @Override
     public void onClick(View view) {
         scrollToPosition(0);
-        mFloatingActionBtn.hide();
     }
 
     private class BackTopScrollListener extends OnScrollListener {
@@ -60,9 +51,6 @@ public class BackTopRecyclerView extends RecyclerView implements View.OnClickLis
             final LayoutManager layoutManager = recyclerView.getLayoutManager();
             if (layoutManager instanceof LinearLayoutManager) {
                 final int firstVisibleItemPosition = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
-                if (firstVisibleItemPosition == 0 && mFloatingActionBtn != null) {
-                    mFloatingActionBtn.hide();
-                }
 
                 if (firstVisibleItemPosition == 0 && mScrollToListener != null) {
                     isScorllToTop = false;
@@ -79,23 +67,14 @@ public class BackTopRecyclerView extends RecyclerView implements View.OnClickLis
                     isScorllToTop = true;
                     mScrollToListener.onScrollToTop();
                 }
-                if (!isFabShow && mFloatingActionBtn != null) {
-                    isFabShow = true;
-                    mFloatingActionBtn.show();
-                }
+
             } else if (dy > 0) { //向下滑,并且返回顶部按钮隐藏
 
                 if (isScorllToTop && mScrollToListener != null) {
                     isScorllToTop = false;
                     mScrollToListener.onScrollIdle();
                 }
-
-                if (mFloatingActionBtn != null && isFabShow) {
-                    isFabShow = false;
-                    mFloatingActionBtn.hide();
-                }
             }
-
 
         }
     }

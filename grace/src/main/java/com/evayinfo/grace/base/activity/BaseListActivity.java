@@ -1,6 +1,5 @@
 package com.evayinfo.grace.base.activity;
 
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,7 +22,6 @@ public abstract class BaseListActivity extends BackActivity implements BackTopRe
     RecyclerRefreshLayout mRefreshLayout;
     BackTopRecyclerView mRecyclerView;
     RelativeLayout rlTopContainer;
-    FloatingActionButton mFab;
     String title;
     private int page = 1;
     private int totalPage = 0;
@@ -45,7 +43,6 @@ public abstract class BaseListActivity extends BackActivity implements BackTopRe
 
         rlTopContainer = findViewById(R.id.rl_top_container);
         mRefreshLayout = findViewById(R.id.refresh_layout);
-        mFab = findViewById(R.id.fab);
         mRecyclerView = findViewById(R.id.rv);
 
         mRefreshLayout.setEnabled(false);
@@ -151,11 +148,6 @@ public abstract class BaseListActivity extends BackActivity implements BackTopRe
         setTitle(title);
     }
 
-
-    protected void clickFabBackTop() {
-        mRecyclerView.setFloatingButton(mFab);
-        mFab.show();
-    }
 
     protected void clickTitleBackTop(String title) {
         mRecyclerView.setOnScrollToTopListener(this);
