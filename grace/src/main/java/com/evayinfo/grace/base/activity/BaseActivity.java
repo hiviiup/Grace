@@ -22,7 +22,7 @@ import com.evayinfo.grace.R;
  */
 public abstract class BaseActivity extends AppCompatActivity {
     public Toolbar toolbar;
-    public LinearLayout llRootLayout;
+    public RelativeLayout llRootLayout;
     public LinearLayout llContentLayout;
     private RelativeLayout rlProgressbar;
 
