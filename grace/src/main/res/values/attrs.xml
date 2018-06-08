@@ -23,6 +23,11 @@
         <attr name="isShowDividerLine" format="boolean" />
         <attr name="canEdit" format="boolean" />
         <attr name="contentHint" format="string" />
+        <attr name="titleWrapContent" format="boolean" />
+        <attr name="leftIcon" format="reference" />
+        <attr name="rightIcon" format="reference" />
+        <attr name="titleGravityRight" format="boolean" />
+        <attr name="contentGravityRight" format="boolean" />
     </declare-styleable>
 
 </resources>
