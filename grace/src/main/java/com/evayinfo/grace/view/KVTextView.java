@@ -121,7 +121,7 @@ public class KVTextView extends LinearLayout {
         //设置文本在文本框的位置，默认左对齐
         tvValue.setGravity(!isContentGravityRight ? Gravity.START : Gravity.END);
         etValue.setGravity(!isContentGravityRight ? Gravity.START : Gravity.END);
-        tvKey.setGravity(isTitleGravityRight ? Gravity.START : Gravity.END);
+        tvKey.setGravity(!isTitleGravityRight ? Gravity.START : Gravity.END);
 
         ll.setOrientation(isVertical ? VERTICAL : HORIZONTAL);
         dividerLine1.setVisibility(isShowDividerLine ? VISIBLE : GONE);
