@@ -3,6 +3,8 @@ package com.evayinfo.grace.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -101,21 +103,14 @@ public class KVTextView extends LinearLayout {
 
         //设置左侧和右侧图标
         if (leftIcon != null) {
-            leftIcon.setBounds(0,0,leftIcon.getMinimumWidth(),leftIcon.getMinimumHeight());
+            leftIcon.setBounds(0, 0, leftIcon.getMinimumWidth(), leftIcon.getMinimumHeight());
             tvKey.setCompoundDrawables(leftIcon, null, null, null);
         }
+
         if (rightIcon != null) {
-            rightIcon.setBounds(0,0,rightIcon.getMinimumWidth(),rightIcon.getMinimumHeight());
-            tvValue.setCompoundDrawables(rightIcon, null, null, null);
-            etValue.setCompoundDrawables(rightIcon, null, null, null);
-        }
-
-        //如果现实分界线的话，将value控件的宽度设置为全屏
-        if (isShowDividerLine) {
-            RelativeLayout.LayoutParams contentParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            tvValue.setLayoutParams(contentParams);
-            etValue.setLayoutParams(contentParams);
-
+            rightIcon.setBounds(0, 0, rightIcon.getMinimumWidth(), rightIcon.getMinimumHeight());
+            tvValue.setCompoundDrawables(null, null, rightIcon, null);
+            etValue.setCompoundDrawables(null, null, rightIcon, null);
         }
 
         //设置文本在文本框的位置，默认左对齐
@@ -130,7 +125,10 @@ public class KVTextView extends LinearLayout {
         setContent(TextUtils.isEmpty(content) ? "" : content);
         setTitle(TextUtils.isEmpty(title) ? "" : title);
 
+        handler.sendEmptyMessageDelayed(0, 100);
+
     }
+
 
     public void setContent(String content) {
         tvValue.setText(content);
@@ -160,4 +158,17 @@ public class KVTextView extends LinearLayout {
     public boolean isEmpty() {
         return TextUtils.isEmpty(getContent());
     }
+
+    private Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            //如果现实分界线的话或者将值右对齐时，将value控件的宽度设置为全屏
+            if (getLayoutParams() != null && getLayoutParams().width == LayoutParams.MATCH_PARENT) {
+                RelativeLayout.LayoutParams contentParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                tvValue.setLayoutParams(contentParams);
+                etValue.setLayoutParams(contentParams);
+            }
+            return true;
+        }
+    });
 }
