@@ -25,13 +25,12 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
             AppUtils.toast("服务器开小差了");
         } else if (e instanceof NullPointerException) {
             AppUtils.toast("数据解析异常");
-        } else if (e instanceof SocketTimeoutException) {
+        } else if (e instanceof SocketTimeoutException || e.getMessage().contains("failed to connect to")) {
             AppUtils.toast("请求超时");
         } else if (e.getMessage().contains("重新登录")) {
 //            AccountHelper.deleteToken();
             AppUtils.toast("请重新登录");
-        } else if (e.getMessage().contains("未订阅任何网站")) {
-        } else  {
+        } else {
             AppUtils.toast(e.getMessage() + "");
         }
         e.printStackTrace();

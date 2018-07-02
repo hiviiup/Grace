@@ -2,19 +2,26 @@ package com.evayinfo.grace.http;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.evayinfo.grace.http.download.DownloadProgressInteceptor;
 import com.evayinfo.grace.http.download.DownloadProgressLisenter;
+import com.evayinfo.grace.utils.AppUtils;
 import com.evayinfo.grace.utils.FileUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashSet;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -27,24 +34,28 @@ import rx.schedulers.Schedulers;
 
 public class HttpHelper {
 
-    private final Retrofit mRetrofit;
-    //外网ip
-//    public final static String URL = "http://124.133.230.236:8088/dwxf/app/";
-    //本地ip
-//    public static String BASEURL = "http://111.17.204.158:8088/";
-    public final static String BASEURL = "http://172.16.10.144:9083/";
-    public static String URL = BASEURL + "sxepp/app/";
+    private Retrofit mRetrofit = null;
+    private static String URL;
 
-    private HttpHelper() {
+    public static void init(String url) {
+        URL = url;
+    }
+
+    private HttpHelper(boolean download) {
+
+        if (TextUtils.isEmpty(URL)) {
+            AppUtils.toast("请在Application中调用HttpHelper.init(String url)方法设置url!");
+            return;
+        }
 
         OkHttpClient mHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(new ConnErrorInterceptor())
-                .addInterceptor(new DownloadProgressInteceptor(new DownloadProgressLisenter() {
+                .addInterceptor(download ? new DownloadProgressInteceptor(new DownloadProgressLisenter() {
                     @Override
                     public void update(long downloadSize, long totalSize, boolean done) {
                         listener.download(downloadSize, totalSize, done);
                     }
-                }))
+                }) : new ConnErrorInterceptor())
+                .addInterceptor(new SaveCookiesInterceptor())
                 .retryOnConnectionFailure(true)
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
@@ -61,16 +72,33 @@ public class HttpHelper {
     }
 
     private static volatile HttpHelper instance;
+    private static volatile HttpHelper downloadInstance;
 
     public static HttpHelper getInstance() {
-        if (null == instance) {
-            synchronized (HttpHelper.class) {
-                if (null == instance) {
-                    instance = new HttpHelper();
+        return getInstance(false);
+    }
+
+    public static HttpHelper getInstance(boolean download) {
+        if (download) {
+            if (null == downloadInstance) {
+                synchronized (HttpHelper.class) {
+                    if (null == downloadInstance) {
+                        downloadInstance = new HttpHelper(download);
+                    }
                 }
             }
+            return downloadInstance;
+        } else {
+            if (null == instance) {
+                synchronized (HttpHelper.class) {
+                    if (null == instance) {
+                        instance = new HttpHelper(download);
+                    }
+                }
+            }
+            return instance;
         }
-        return instance;
+
     }
 
     public <T> T create(Class<T> cls) {
@@ -110,5 +138,45 @@ public class HttpHelper {
 
     public void setOnDownloadListener(OnDownloadListener listener) {
         this.listener = listener;
+    }
+
+    public interface OnCookieLoadListener {
+        void onCookieLoad(String cookie);
+    }
+
+    private OnCookieLoadListener onCookieLoadListener;
+
+    public void setOnCookieLoadListener(OnCookieLoadListener onCookieLoadListener) {
+        this.onCookieLoadListener = onCookieLoadListener;
+    }
+
+    public class SaveCookiesInterceptor implements Interceptor {
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            Response originalResponse = chain.proceed(chain.request());
+            //这里获取请求返回的cookie
+            if (!originalResponse.headers("Set-Cookie").isEmpty()) {
+                final StringBuffer cookieBuffer = new StringBuffer();
+                Observable.from(originalResponse.headers("Set-Cookie"))
+                        .map(new Func1<String, String>() {
+                            @Override
+                            public String call(String s) {
+                                String[] cookieArray = s.split(";");
+                                return cookieArray[0];
+                            }
+                        })
+                        .subscribe(new Action1<String>() {
+                            @Override
+                            public void call(String cookie) {
+                                cookieBuffer.append(cookie).append(";");
+                            }
+                        });
+
+                if (onCookieLoadListener != null) {
+                    onCookieLoadListener.onCookieLoad(cookieBuffer.toString());
+                }
+            }
+            return originalResponse;
+        }
     }
 }
