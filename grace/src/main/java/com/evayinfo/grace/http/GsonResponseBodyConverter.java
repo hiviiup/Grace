@@ -37,7 +37,7 @@ final class GsonResponseBodyConverter<T> implements Converter<ResponseBody, T> {
                 return responseBody;
             } else {
                 //ErrResponse 将msg解析为异常消息文本
-                throw new RuntimeException(httpResult.getMsg());
+                throw new ServerException(httpResult.getMsg(), httpResult.getCode());
             }
         } finally {
         }

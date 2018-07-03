@@ -7,6 +7,7 @@ package com.evayinfo.grace.http;
 public class HttpResult<T> extends Object {
     boolean flag;
     String msg;
+    String code;
     T data;
 
     public T getData() {
@@ -33,4 +34,11 @@ public class HttpResult<T> extends Object {
         this.msg = msg;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 }

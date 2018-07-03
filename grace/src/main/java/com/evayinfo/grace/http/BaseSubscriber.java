@@ -15,25 +15,35 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
 
     @Override
     public void onCompleted() {
-
+        hideProgress();
     }
 
     @Override
     public void onError(Throwable e) {
-
-        if (e instanceof ConnectException) {
-            AppUtils.toast("服务器开小差了");
-        } else if (e instanceof NullPointerException) {
-            AppUtils.toast("数据解析异常");
-        } else if (e instanceof SocketTimeoutException || e.getMessage().contains("failed to connect to")) {
-            AppUtils.toast("请求超时");
-        } else if (e.getMessage().contains("重新登录")) {
-//            AccountHelper.deleteToken();
-            AppUtils.toast("请重新登录");
+        hideProgress();
+        if (e instanceof ServerException) {
+            //服务端加载数据时发生的错误信息
+            onResponseError(((ServerException) e).getCode());
         } else {
-            AppUtils.toast(e.getMessage() + "");
+            if (e instanceof ConnectException) {
+                AppUtils.toast("服务器开小差了");
+            } else if (e instanceof NullPointerException) {
+                AppUtils.toast("数据解析异常");
+            } else if (e instanceof SocketTimeoutException || e.getMessage().contains("failed to connect to")) {
+                AppUtils.toast("请求超时");
+            } else {
+                AppUtils.toast("服务器错误");
+            }
         }
         e.printStackTrace();
+    }
+
+    private void hideProgress() {
+
+    }
+
+    public void onResponseError(String code) {
+
     }
 
     @Override
