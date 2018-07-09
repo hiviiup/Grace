@@ -24,6 +24,7 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
         if (e instanceof ServerException) {
             //服务端加载数据时发生的错误信息
             onResponseError(((ServerException) e).getCode());
+            AppUtils.toast(e.getMessage());
         } else {
             if (e instanceof ConnectException) {
                 AppUtils.toast("服务器开小差了");

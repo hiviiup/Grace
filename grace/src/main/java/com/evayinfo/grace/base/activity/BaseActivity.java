@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 import com.evayinfo.grace.R;
@@ -25,6 +26,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public RelativeLayout llRootLayout;
     public LinearLayout llContentLayout;
     private RelativeLayout rlProgressbar;
+    private TextView tvCenterTitle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         llRootLayout = findViewById(R.id.ll_activity_base_view);
 
         rlProgressbar = findViewById(R.id.rl_progressbar);
+        tvCenterTitle = findViewById(R.id.tv_title);
         ProgressBar progressBar = findViewById(R.id.progress_bar);
         init();
         initBundles();
@@ -113,11 +116,28 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param title 标题
      */
     public void setTitle(String title) {
+        setTitle(title, false);
+    }
+
+    public void setTitle(String title, boolean center) {
         if (hasActionbar()) {
             {
                 final ActionBar supportActionBar = getSupportActionBar();
                 if (supportActionBar != null) {
-                    supportActionBar.setTitle(title);
+                    supportActionBar.setTitle(center ? "" : title);
+                    tvCenterTitle.setText(center ? title : "");
+                }
+            }
+        }
+    }
+
+    public void setTitle(int titleId, boolean center) {
+        if (hasActionbar()) {
+            {
+                final ActionBar supportActionBar = getSupportActionBar();
+                if (supportActionBar != null) {
+                    supportActionBar.setTitle(center ? "" : getResources().getString(titleId));
+                    tvCenterTitle.setText(center ? getResources().getString(titleId) : "");
                 }
             }
         }
@@ -125,23 +145,21 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     public void setTitle(int titleId) {
-        if (hasActionbar()) {
-            {
-                final ActionBar supportActionBar = getSupportActionBar();
-                if (supportActionBar != null) {
-                    supportActionBar.setTitle(titleId);
-                }
-            }
-        }
+        setTitle(titleId, false);
     }
 
     @Override
     public void setTitle(CharSequence title) {
+        setTitle(title, false);
+    }
+
+    public void setTitle(CharSequence title, boolean center) {
         if (hasActionbar()) {
             {
                 final ActionBar supportActionBar = getSupportActionBar();
                 if (supportActionBar != null) {
-                    supportActionBar.setTitle(title);
+                    supportActionBar.setTitle(center ? "" : title);
+                    tvCenterTitle.setText(center ? title : "");
                 }
             }
         }

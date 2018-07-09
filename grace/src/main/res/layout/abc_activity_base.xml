@@ -15,7 +15,19 @@
         app:contentInsetStart="0dp"
         app:contentInsetStartWithNavigation="0dp"
         app:title="Toolbar"
-        app:titleTextAppearance="?attr/titleTextStyle" />
+        app:titleTextAppearance="?attr/titleTextStyle">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
+            android:gravity="center"
+            android:textAppearance="?attr/titleTextStyle"
+            android:textSize="14sp" />
+
+    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:id="@+id/ll_activity_view_container"
