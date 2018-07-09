@@ -15,14 +15,14 @@ android {
         groupId = 'com.github.hiviiup'
         repoName = 'grace'
         artifactId = 'grace'
-        publishVersion = '4.2.2'
+        publishVersion = '4.2.3'
     }
 
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 25
-        versionName "4.2.2"
+        versionCode 26
+        versionName "4.2.3"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
