@@ -156,7 +156,11 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
                 }
                 break;
             default:
-                onBindDefaultViewHolder(holder, getItems().get(getIndex(position)), position);
+                if (getItemViewType(position) == VIEW_TYPE_NORMAL)
+                    onBindDefaultViewHolder(holder, getItems().get(getIndex(position)), position);
+                else {
+                    onBindDefaultViewHolder(holder, null, position);
+                }
                 break;
         }
     }
