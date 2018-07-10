@@ -13,6 +13,11 @@ import rx.Subscriber;
 
 public abstract class BaseSubscriber<T> extends Subscriber<T> {
 
+    public static final int CONN_FAIL = -1;
+    public static final int NULL_POINTER = -2;
+    public static final int TIME_OUT = -3;
+    public static final int UNKNOWN = -4;
+
     @Override
     public void onCompleted() {
         hideProgress();
@@ -23,27 +28,25 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
         hideProgress();
         if (e instanceof ServerException) {
             //服务端加载数据时发生的错误信息
-            onResponseError(((ServerException) e).getCode());
-            AppUtils.toast(e.getMessage());
+            onResponseError(((ServerException) e).getCode(), e);
         } else {
             if (e instanceof ConnectException) {
-                AppUtils.toast("服务器开小差了");
+                onResponseError(CONN_FAIL, e);
             } else if (e instanceof NullPointerException) {
-                AppUtils.toast("数据解析异常");
+                onResponseError(NULL_POINTER, e);
             } else if (e instanceof SocketTimeoutException || e.getMessage().contains("failed to connect to")) {
-                AppUtils.toast("请求超时");
+                onResponseError(TIME_OUT, e);
             } else {
-                AppUtils.toast("服务器错误");
+                onResponseError(UNKNOWN, e);
             }
         }
         e.printStackTrace();
     }
 
-    private void hideProgress() {
-
+    public void hideProgress() {
     }
 
-    public void onResponseError(String code) {
+    public void onResponseError(int code, Throwable e) {
 
     }
 
