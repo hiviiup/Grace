@@ -20,12 +20,12 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
 
     @Override
     public void onCompleted() {
-        hideProgress();
+        onFinish();
     }
 
     @Override
     public void onError(Throwable e) {
-        hideProgress();
+        onFinish();
         if (e instanceof ServerException) {
             //服务端加载数据时发生的错误信息
             onResponseError(((ServerException) e).getCode(), e);
@@ -43,7 +43,7 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
         e.printStackTrace();
     }
 
-    public void hideProgress() {
+    public void onFinish() {
     }
 
     public void onResponseError(int code, Throwable e) {
