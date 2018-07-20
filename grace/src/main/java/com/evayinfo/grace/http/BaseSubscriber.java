@@ -13,10 +13,10 @@ import rx.Subscriber;
 
 public abstract class BaseSubscriber<T> extends Subscriber<T> {
 
-    public static final int CONN_FAIL = -1;
-    public static final int NULL_POINTER = -2;
-    public static final int TIME_OUT = -3;
-    public static final int UNKNOWN = -4;
+    public static final String CONN_FAIL = "connfail";
+    public static final String NULL_POINTER = "nullpointer";
+    public static final String TIME_OUT = "timeout";
+    public static final String UNKNOWN = "unknown";
 
     @Override
     public void onCompleted() {
@@ -46,7 +46,7 @@ public abstract class BaseSubscriber<T> extends Subscriber<T> {
     public void onFinish() {
     }
 
-    public void onResponseError(int code, Throwable e) {
+    public void onResponseError(String code, Throwable e) {
 
     }
 

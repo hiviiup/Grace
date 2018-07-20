@@ -6,14 +6,14 @@ package com.evayinfo.grace.http;
 
 public class ServerException extends RuntimeException {
 
-    private int code;
+    private String code;
 
-    public ServerException(String message,int code) {
+    public ServerException(String message,String code) {
         super(message);
         this.code = code;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 }
