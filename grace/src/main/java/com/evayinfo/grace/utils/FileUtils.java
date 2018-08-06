@@ -1,16 +1,19 @@
 package com.evayinfo.grace.utils;
 
 import android.Manifest;
+import android.graphics.Bitmap;
 import android.os.Environment;
 import android.support.annotation.RequiresPermission;
 import android.util.Log;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * Created by DEVIN on 2017/10/17.
@@ -148,6 +151,34 @@ public class FileUtils {
             }
         } else {
             file.delete();
+        }
+    }
+
+    public static void bytesToFile(byte[] buffer, File file) {
+        OutputStream output = null;
+        BufferedOutputStream bufferedOutput = null;
+        try {
+            output = new FileOutputStream(file);
+            bufferedOutput = new BufferedOutputStream(output);
+            bufferedOutput.write(buffer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (null != bufferedOutput) {
+                try {
+                    bufferedOutput.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (null != output) {
+                try {
+                    output.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
