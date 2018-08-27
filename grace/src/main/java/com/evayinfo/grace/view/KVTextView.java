@@ -91,8 +91,6 @@ public class KVTextView extends LinearLayout {
             //如果选择纵向排列，将标题的宽度设置为全屏显示
             LayoutParams titleParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             tvKey.setLayoutParams(titleParams);
-            tvValue.setLayoutParams(titleParams);
-            etValue.setLayoutParams(titleParams);
         } else {
             if (isTitleWrapContent) {
                 //如果选择title包裹内容，只支持横向排列
