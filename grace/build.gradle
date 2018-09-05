@@ -15,14 +15,14 @@ android {
         groupId = 'com.github.hiviiup'
         repoName = 'grace'
         artifactId = 'grace'
-        publishVersion = '4.2.7'
+        publishVersion = '4.2.8'
     }
 
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 29
-        versionName "4.2.7"
+        versionCode 30
+        versionName "4.2.8"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -51,5 +51,4 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
-    compile 'com.yanzhenjie:permission:2.0.0-rc12'
 }

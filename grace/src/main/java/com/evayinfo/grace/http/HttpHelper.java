@@ -58,7 +58,8 @@ public class HttpHelper {
                 .addInterceptor(new SaveCookiesInterceptor())
                 .retryOnConnectionFailure(true)
                 .connectTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(20,TimeUnit.SECONDS)
                 .build();
 
         mRetrofit = new Retrofit.Builder()

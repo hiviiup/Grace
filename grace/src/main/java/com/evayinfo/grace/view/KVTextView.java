@@ -8,6 +8,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,15 +47,15 @@ public class KVTextView extends LinearLayout {
         final View view = View.inflate(context, R.layout.abc_kv_textview, null);
         addView(view);
 
-
         TypedArray ta = context.getTheme().obtainStyledAttributes(attrs, R.styleable.KVTextView, defStyleAttr, 0);
         String content = ta.getString(R.styleable.KVTextView_contentText);
         String title = ta.getString(R.styleable.KVTextView_titleText);
         String contentHint = ta.getString(R.styleable.KVTextView_contentHint);
         int titleColor = ta.getColor(R.styleable.KVTextView_titleColor, 0xFF999999);
         int contentColor = ta.getColor(R.styleable.KVTextView_contentColor, 0xFF323232);
-//        float titleSize = ta.getDimensionPixelSize(R.styleable.KVTextView_titleSize, 12);
-//        float contentSize = ta.getDimensionPixelSize(R.styleable.KVTextView_contentSize, 14);
+        float titleSize = ta.getDimension(R.styleable.KVTextView_titleSize, 12);
+        float contentSize = ta.getDimension(R.styleable.KVTextView_contentSize, 14);
+//        float contentInputType = ta.getInt(R.styleable.KVTextView_contentInputType,3);
         boolean isVertical = ta.getBoolean(R.styleable.KVTextView_isVertical, false);
         boolean isShowDividerLine = ta.getBoolean(R.styleable.KVTextView_isShowDividerLine, false);
         boolean isTitleWrapContent = ta.getBoolean(R.styleable.KVTextView_titleWrapContent, false);
@@ -62,7 +63,6 @@ public class KVTextView extends LinearLayout {
         boolean isContentGravityRight = ta.getBoolean(R.styleable.KVTextView_contentGravityRight, false);
         Drawable leftIcon = ta.getDrawable(R.styleable.KVTextView_leftIcon);
         Drawable rightIcon = ta.getDrawable(R.styleable.KVTextView_rightIcon);
-
 
         canEdit = ta.getBoolean(R.styleable.KVTextView_canEdit, false);
         ta.recycle();
@@ -84,6 +84,10 @@ public class KVTextView extends LinearLayout {
         tvKey.setTextColor(titleColor);
         tvValue.setTextColor(contentColor);
         etValue.setTextColor(contentColor);
+
+        tvKey.setTextSize(TypedValue.COMPLEX_UNIT_PX,titleSize);
+        tvValue.setTextSize(TypedValue.COMPLEX_UNIT_PX,contentSize);
+        etValue.setTextSize(TypedValue.COMPLEX_UNIT_PX,contentSize);
 
         if (isVertical) {
             tvValue.setPadding(tvKey.getPaddingLeft(), 0, tvKey.getPaddingRight(), tvKey.getPaddingBottom());

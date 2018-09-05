@@ -58,6 +58,7 @@
                 android:background="#00ffffff"
                 android:drawablePadding="10dp"
                 android:textColor="#333"
+                android:inputType="text"
                 android:textColorHint="#b6b5b5"
                 android:textSize="14sp"
                 android:theme="@style/Theme.AppCompat.Light" />
