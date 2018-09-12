@@ -28,11 +28,7 @@ public class AppUtils {
     }
 
     public static void toast(String message, int duration) {
-        if (toast == null) {
-            toast = Toasty.info(context(), message, duration);
-        }
-        toast.setText(message);
-        toast.show();
+        Toasty.normal(context(), message, duration).show();
     }
 
     @Nullable
