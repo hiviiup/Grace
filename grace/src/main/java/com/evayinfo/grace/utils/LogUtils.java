@@ -3,6 +3,7 @@ package com.evayinfo.grace.utils;
 import android.util.Log;
 
 import com.evayinfo.grace.BuildConfig;
+import com.orhanobut.logger.Logger;
 
 import java.security.PublicKey;
 
@@ -12,7 +13,7 @@ import java.security.PublicKey;
 
 public class LogUtils {
 
-    private static boolean DEBUG = BuildConfig.DEBUG ;
+    private static boolean DEBUG = BuildConfig.DEBUG;
     private static String TAG = "LogUtils";
 
     public static void debug(boolean debug) {
@@ -20,23 +21,18 @@ public class LogUtils {
     }
 
     public static void e(String msg) {
-        if (DEBUG) {
-            Log.e(TAG, msg);
-        }
+        Logger.e(msg);
     }
 
     public static void d(String msg) {
-        if (DEBUG)
-            Log.d(TAG, msg);
+        Logger.d(msg);
     }
 
     public static void i(String msg) {
-        if (DEBUG)
-            Log.i(TAG, msg);
+        Logger.i(msg);
     }
 
     public static void w(String msg) {
-        if (DEBUG)
-            Log.w(TAG, msg);
+        Logger.w(msg);
     }
 }

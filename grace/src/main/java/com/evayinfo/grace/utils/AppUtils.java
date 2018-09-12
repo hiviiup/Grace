@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import com.evayinfo.grace.Grace;
 
+import es.dmoral.toasty.Toasty;
+
 /**
  * 常用类
  * Created by DEVIN on 2017/9/29.
@@ -26,8 +28,9 @@ public class AppUtils {
     }
 
     public static void toast(String message, int duration) {
-        if (toast == null)
-            toast = Toast.makeText(context(), message, duration);
+        if (toast == null) {
+            toast = Toasty.info(context(), message, duration);
+        }
         toast.setText(message);
         toast.show();
     }
@@ -46,14 +49,16 @@ public class AppUtils {
     }
 
     public static int getVersionCode() {
-        if (getPackageInfo() == null)
+        if (getPackageInfo() == null) {
             return 0;
+        }
         return getPackageInfo().versionCode;
     }
 
     public static String getVersionName() {
-        if (getPackageInfo() == null)
+        if (getPackageInfo() == null) {
             return "";
+        }
         return getPackageInfo().versionName;
     }
 

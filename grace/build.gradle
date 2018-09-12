@@ -15,14 +15,14 @@ android {
         groupId = 'com.github.hiviiup'
         repoName = 'grace'
         artifactId = 'grace'
-        publishVersion = '4.2.8'
+        publishVersion = '4.3.0'
     }
 
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 30
-        versionName "4.2.8"
+        versionCode 31
+        versionName "4.3.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -44,11 +44,17 @@ dependencies {
     compile 'me.dm7.barcodescanner:zxing:1.9.8'
     compile 'com.github.bumptech.glide:glide:4.2.0'
     compile 'com.github.yalantis:ucrop:2.2.1'
-    compile 'com.github.chrisbanes:PhotoView:1.3.0'
+    compile 'com.github.chrisbanes:PhotoView:2.0.0'
 
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'io.reactivex:rxjava:1.3.3'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
+    compileOnly ('com.yanzhenjie:permission:2.0.0-rc12') {
+        exclude (group:'com.android.support')
+    }
+    compile 'com.github.GrenderG:Toasty:1.3.0'
+    compile 'com.orhanobut:logger:2.2.0'
+
 }
