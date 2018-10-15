@@ -20,4 +20,5 @@
     <string name="button_ok">确定</string>
     <string name="action_settings">设置</string>
     <string name="done">完成</string>
+    <string name="permissions_camera_error">未获取相机权限</string>
 </resources>

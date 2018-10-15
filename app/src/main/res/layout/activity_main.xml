@@ -6,10 +6,11 @@
     android:layout_height="match_parent"
     tools:context="com.evayinfo.demo.MainActivity">
 
-    <Button
-        android:id="@+id/btn"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="查看图片" />
+   <com.evayinfo.grace.view.KVTextView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       app:isVertical="true"
+       app:titleText="11111111111111111"
+       app:contentText="11"></com.evayinfo.grace.view.KVTextView>
 
 </RelativeLayout>

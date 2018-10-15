@@ -24,9 +24,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".CaptureActivity"
-            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.evayinfo.grace.media.PhotoSelectActivity"
