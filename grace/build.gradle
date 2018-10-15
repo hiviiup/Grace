@@ -12,17 +12,17 @@ android {
 
     publish {
         userOrg = 'devin1024'
-        groupId = 'com.github.hiviiup'
+        groupId = 'com.iboomboom'
         repoName = 'grace'
         artifactId = 'grace'
-        publishVersion = '4.3.2'
+        publishVersion = '4.3.3'
     }
 
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 33
-        versionName "4.3.2"
+        versionCode 34
+        versionName "4.3.3"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 

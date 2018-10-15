@@ -25,7 +25,7 @@ import android.os.Looper;
 import android.os.Message;
 
 import com.dtr.zxing.activity.BaseScanActivity;
-import com.evayinfo.grace.R;
+import com.iboomboom.grace.R;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.MultiFormatReader;

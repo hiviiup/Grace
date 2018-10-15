@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.evayinfo.demo.MainActivity">
+    tools:context="com.iboomboom.demo.MainActivity">
 
-   <com.evayinfo.grace.view.KVTextView
+   <com.iboomboom.grace.view.KVTextView
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        app:isVertical="true"
        app:titleText="11111111111111111"
-       app:contentText="11"></com.evayinfo.grace.view.KVTextView>
+       app:contentText="11"></com.iboomboom.grace.view.KVTextView>
 
 </RelativeLayout>

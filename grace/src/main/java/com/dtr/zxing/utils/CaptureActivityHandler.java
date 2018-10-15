@@ -25,7 +25,7 @@ import android.os.Message;
 import com.dtr.zxing.activity.BaseScanActivity;
 import com.dtr.zxing.camera.CameraManager;
 import com.dtr.zxing.decode.DecodeThread;
-import com.evayinfo.grace.R;
+import com.iboomboom.grace.R;
 import com.google.zxing.Result;
 
 /**

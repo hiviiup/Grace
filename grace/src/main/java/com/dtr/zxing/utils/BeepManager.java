@@ -27,7 +27,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.dtr.zxing.activity.BaseScanActivity;
-import com.evayinfo.grace.R;
+import com.iboomboom.grace.R;
 
 import java.io.Closeable;
 import java.io.IOException;

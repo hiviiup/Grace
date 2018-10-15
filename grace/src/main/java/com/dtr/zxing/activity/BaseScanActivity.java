@@ -25,7 +25,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -34,8 +33,8 @@ import com.dtr.zxing.decode.DecodeThread;
 import com.dtr.zxing.utils.BeepManager;
 import com.dtr.zxing.utils.CaptureActivityHandler;
 import com.dtr.zxing.utils.InactivityTimer;
-import com.evayinfo.grace.R;
-import com.evayinfo.grace.base.activity.BackActivity;
+import com.iboomboom.grace.R;
+import com.iboomboom.grace.base.activity.BackActivity;
 import com.google.zxing.Result;
 
 import java.io.IOException;
@@ -72,8 +71,6 @@ public abstract class BaseScanActivity extends BackActivity implements
 
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        setContentView(R.layout.activity_qr_scan);
-
     }
 
     protected abstract SurfaceView getScanPreview();
